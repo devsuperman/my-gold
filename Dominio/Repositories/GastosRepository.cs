@@ -17,50 +17,78 @@ public class GastosRepository(Contexto db) : IGastosRepository
 
     public async Task<List<ListarGasto>> ListAll(DateTime mesAno, int categoriaId)
     {
-        var query = _db.Gastos
+        try
+        {
+            var query = _db.Gastos
                 .AsNoTrackingWithIdentityResolution()
                 .Include(a => a.Categoria)
                 .Where(w =>
                     w.Fecha.Month == mesAno.Month &&
                     w.Fecha.Year == mesAno.Year);
 
-        if (categoriaId > 0)
-            query = query.Where(w => w.CategoriaId == categoriaId);
+            if (categoriaId > 0)
+                query = query.Where(w => w.CategoriaId == categoriaId);
 
-        var lista = await query
-            .OrderByDescending(o => o.Fecha)
-            .Select(s=> new ListarGasto
+            var lista = await query
+                .OrderByDescending(o => o.Fecha)
+                .Select(s => new ListarGasto
+                {
+                    Id = s.Id,
+                    Fecha = s.Fecha,
+                    Nombre = s.Nombre,
+                    Valor = s.Valor.Value,
+                    CategoriaId = s.CategoriaId,
+                    Categoria = s.Categoria.Nombre
+                })
+                .ToListAsync();
+
+            return lista;
+        }
+        catch (Npgsql.PostgresException ex)
+        {
+            if (ex.Message.Contains("starting up"))
             {
-                Id = s.Id,
-                Fecha = s.Fecha,
-                Nombre = s.Nombre,
-                Valor = s.Valor.Value,
-                CategoriaId = s.CategoriaId,
-                Categoria = s.Categoria.Nombre
-            })
-            .ToListAsync();
+                await Task.Delay(5000);
+                return await ListAll(mesAno, categoriaId);
+            }
 
-        return lista;
+            throw;
+        }
+
+
     }
 
     public async Task<List<Tuple<string, decimal>>> ListarPorCategoria(DateTime mesAno)
     {
-        var totaisPorCategoria = await _db.Gastos
-            .Where(w =>
-                w.Fecha.Month == mesAno.Month &&
-                w.Fecha.Year == mesAno.Year)
-            .Select(s => new
+        try
+        {
+            var totaisPorCategoria = await _db.Gastos
+                .Where(w =>
+                    w.Fecha.Month == mesAno.Month &&
+                    w.Fecha.Year == mesAno.Year)
+                .Select(s => new
+                {
+                    Categoria = s.Categoria.Nombre,
+                    s.Valor
+                })
+                .GroupBy(g => g.Categoria)
+                .Select(s => new Tuple<string, decimal>(s.Key, s.Sum(d => d.Valor.Value)))
+                .ToListAsync();
+
+            totaisPorCategoria = totaisPorCategoria.OrderByDescending(o => o.Item2).ToList();
+
+            return totaisPorCategoria;
+        }
+        catch (Npgsql.PostgresException ex)
+        {
+            if (ex.Message.Contains("starting up"))
             {
-                Categoria = s.Categoria.Nombre,
-                s.Valor
-            })
-            .GroupBy(g => g.Categoria)
-            .Select(s => new Tuple<string, decimal>(s.Key, s.Sum(d => d.Valor.Value)))
-            .ToListAsync();
+                await Task.Delay(5000);
+                return await ListarPorCategoria(mesAno);
+            }
 
-        totaisPorCategoria = totaisPorCategoria.OrderByDescending(o => o.Item2).ToList();
-
-        return totaisPorCategoria;
+            throw;
+        }
     }
 
     public async Task<Gasto> Upsert(Gasto model)

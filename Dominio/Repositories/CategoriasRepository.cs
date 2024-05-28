@@ -16,7 +16,20 @@ public class CategoriasRepository(Contexto db) : ICategoriasRepository
 
     public async Task<List<Categoria>> ListAll()
     {
-        return await _db.Categorias.AsNoTracking().OrderBy(o => o.Nombre).ToListAsync();
+        try
+        {
+            return await _db.Categorias.AsNoTracking().OrderBy(o => o.Nombre).ToListAsync();            
+        }
+        catch (Npgsql.PostgresException ex)
+        {
+            if (ex.Message.Contains("starting up"))
+            {
+                await Task.Delay(5000);
+                return await ListAll();
+            }
+
+            throw;
+        }
     }
 
     public async Task<Categoria> Upsert(Categoria categoria)
