@@ -12,7 +12,7 @@ public class JwtTokenGenerator(IConfiguration configuration)
 
     public string Execute(string userName)
     {
-        var key = _configuration.GetValue<string>("Jwt:Key");
+        var key = _configuration["Jwt:Key"];
         var keyBytes = Encoding.UTF8.GetBytes(key);
 
         var tokenHandler = new JwtSecurityTokenHandler();

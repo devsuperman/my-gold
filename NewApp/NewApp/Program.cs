@@ -15,6 +15,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddControllers();
 
@@ -39,7 +40,6 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAutenticationProvider>();
 builder.Services.AddSingleton<JwtTokenGenerator>();
-builder.Services.AddScoped<ITokenStorage, SaveToken>();
 builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 builder.Services.AddScoped<ICategoriasRepository, CategoriasRepository>();
 builder.Services.AddScoped<IGastosRepository, GastosRepository>();
