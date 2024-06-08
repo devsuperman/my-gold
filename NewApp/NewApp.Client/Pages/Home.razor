@@ -1,4 +1,5 @@
 ﻿@page "/"
+@attribute [Authorize]
 
 <PageTitle>Início</PageTitle>
 
@@ -9,48 +10,49 @@
     </h1>
 
     <div>
-        <InputDate Type="InputDateType.Month" class="form-control" @bind-Value="MesAno" @bind-Value:after="CarregarGastos" />
+        <InputDate Type="InputDateType.Month" class="form-control" @bind-Value="MesAno"
+            @bind-Value:after="CarregarGastos" />
     </div>
 
 </form>
 
 <hr>
 
-    <ul class="list-group">
-        @foreach (var item in Model)
-        {
-            <li class="list-group-item d-flex justify-content-between">
-                <span>
-                    @item.Item1
-                </span>
-                <span>
-                    R$ @item.Item2.ToString("N2")
-                </span>
-            </li>
-        }
-
-        <li class="list-group-item list-group-item-success d-flex justify-content-between">
+<ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between">
             <span>
-                Total
+                @item.Item1
             </span>
             <span>
-                R$ @Model.Sum(s => s.Item2).ToString("N2")
+                R$ @item.Item2.ToString("N2")
             </span>
         </li>
+    }
 
-    </ul>
+    <li class="list-group-item list-group-item-success d-flex justify-content-between">
+        <span>
+            Total
+        </span>
+        <span>
+            R$ @Model.Sum(s => s.Item2).ToString("N2")
+        </span>
+    </li>
 
-    <div class='d-flex justify-content-end mt-4'>
-        <a href="/gastos/form" class='btn btn-primary'>
-            <i class="bi bi-coin"></i>
-            Añadir Gasto
-        </a>
-    </div>
+</ul>
+
+<div class='d-flex justify-content-end mt-4'>
+    <a href="/gastos/form" class='btn btn-primary'>
+        <i class="bi bi-coin"></i>
+        Añadir Gasto
+    </a>
+</div>
 
 @code {
     public List<Tuple<string, decimal>> Model { get; set; } = new();
     public DateTime MesAno { get; set; } = DateTime.Today;
-    @inject AuthenticationStateProvider _auth;
+    @inject BitzArt.Blazor.Auth.IUserService _userService;
 
     protected override async Task OnInitializedAsync()
     {
@@ -59,10 +61,7 @@
 
     public async Task CarregarGastos()
     {
-        var state = await _auth.GetAuthenticationStateAsync();
-
-        if (state.User.Identity.IsAuthenticated)
-            Model = await _gastosRepository.ListarPorCategoria(MesAno);
+        Model = await _gastosRepository.ListarPorCategoria(MesAno);
     }
 
 

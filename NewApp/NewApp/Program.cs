@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Dominio.Repositories;
+using BitzArt.Blazor.Auth;
 using Dominio.Interfaces;
 using NewApp.Extensions;
 using NewApp.Services;
 using Dominio.Data;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,35 +12,10 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddControllers();
-
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            ClockSkew = TimeSpan.Zero            
-        };
-    });
-
-builder.Services.AddAuthorization();
-
-builder.Services.AddScoped<AuthenticationStateProvider, ServerAutenticationProvider>();
-builder.Services.AddSingleton<JwtTokenGenerator>();
-builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
 builder.Services.AddScoped<ICategoriasRepository, CategoriasRepository>();
 builder.Services.AddScoped<IGastosRepository, GastosRepository>();
-
+// 
 builder.Services.AddDbContext<Contexto>(
         options => options.UseNpgsql(ConnectionHelper.GetConnectionString(builder.Configuration),
         a => a.MigrationsAssembly("NewApp")));
@@ -63,6 +35,9 @@ if (portVar is { Length: > 0 } && int.TryParse(portVar, out int port))
     });
 }
 
+builder.AddBlazorAuth<SampleServerSideAuthenticationService>();
+builder.Services.AddScoped<JwtService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -80,14 +55,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.MapRazorComponents<NewApp.Components.App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(NewApp.Client._Imports).Assembly);
+
+app.MapAuthEndpoints();
 
 app.Run();

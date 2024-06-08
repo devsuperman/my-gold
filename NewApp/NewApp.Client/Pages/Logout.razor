@@ -1,15 +1,14 @@
 ﻿@page "/logout"
 
-<PageTitle>Identifique-se</PageTitle>
+<PageTitle>Salir</PageTitle>
 
 @code {
-    @inject ILogger<Logout> _logger
+    @inject BitzArt.Blazor.Auth.IUserService _userService
     
     protected override async Task OnInitializedAsync()
     {
-        var clientProvider = (NewApp.Client.Services.ClientAuthenticationProvider)_authenticationProvider;
-        await clientProvider.LogoutAsync();        
-        _navigation.NavigateTo("/login");
+        await _userService.SignOutAsync();
+        _navigation.NavigateTo("/login", true);
     }
 
 }
