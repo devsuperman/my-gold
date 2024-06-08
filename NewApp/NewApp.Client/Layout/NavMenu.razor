@@ -61,8 +61,11 @@
             </Authorizing>
         </AuthorizeView>
 
-
-
-
+        <div class="nav-item px-3">
+            <div class="nav-link">
+                <i class="bi bi-robot"></i>
+                @(OperatingSystem.IsBrowser() ? "WASM" : "SERVER")
+            </div>
+        </div>
     </nav>
 </div>

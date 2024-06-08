@@ -1,5 +1,4 @@
 ﻿@page "/login"
-@rendermode InteractiveWebAssembly
 
 <PageTitle>Identifique-se</PageTitle>
 
@@ -9,13 +8,19 @@
         <section>
 
             <EditForm Model="Model" method="post" OnValidSubmit="LoginUser" FormName="login">
+
                 <DataAnnotationsValidator />
+
                 <div class="form-floating mb-3">
-                    <InputText type="password" @bind-Value="Model.Contrasena" class="form-control"
+
+                    <InputText type="password" @bind-Value="Model.Password" class="form-control"
                         autocomplete="current-password" placeholder="contraseña" />
+
                     <label for="password" class="form-label">Contraseña</label>
-                    <ValidationMessage For="() => Model.Contrasena" class="text-danger" />
-                    <span class="text-danger">@Model.ErrorMessage</span>
+
+                    <ValidationMessage For="() => Model.Password" class="text-danger" />
+
+                    <span class="text-danger">@ErrorMessage</span>
                 </div>
 
                 <div>
@@ -29,42 +34,31 @@
 
 @code {
     @inject ILogger<Login> Logger
+
     @using System.ComponentModel.DataAnnotations
-    @inject Dominio.Interfaces.IAutenticacaoService _autenticacaoService
-    
+    @inject BitzArt.Blazor.Auth.IUserService _userService
+
     [SupplyParameterFromForm]
-    private LoginModel Model { get; set; } = new();
+    private Dominio.Auth.SignIn Model { get; set; } = new();
+    private string ErrorMessage { get; set; }
 
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
     public async Task LoginUser()
     {
-        var response = await _autenticacaoService.LoginAsync(Model.Contrasena);
+        var response = await _userService.SignInAsync(Model);
 
-        if (response.Success)
+        if (response.IsSuccess)
         {
-            var clientProvider = (NewApp.Client.Services.ClientAuthenticationProvider)_authenticationProvider;
-            await clientProvider.LoginAsync(response.AccessToken);
+            if (string.IsNullOrEmpty(ReturnUrl))
+                ReturnUrl = "/";
 
-            if (!string.IsNullOrEmpty(ReturnUrl))
-                _navigation.NavigateTo(ReturnUrl);
-
-            _navigation.NavigateTo("/");
+            _navigation.NavigateTo(ReturnUrl, true);
+            return;
         }
-        else
-        {
-            Model.ErrorMessage = "Senha incorreta";
-            Model.Contrasena = string.Empty;
-        }
-    }
 
-    private sealed class LoginModel
-    {
-        [Required(ErrorMessage = "Senha Incorreta")]
-        [DataType(DataType.Password)]
-        public string Contrasena { get; set; } = string.Empty;
-
-        public string ErrorMessage { get; set; } = string.Empty;
+        ErrorMessage = "Senha incorreta";
+        Model.Password = string.Empty;
     }
 }
