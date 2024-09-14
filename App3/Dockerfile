@@ -4,11 +4,11 @@ WORKDIR /app
 
 # Copiar os arquivos de projeto e restaurar as dependências
 COPY /App3/*.csproj ./
-RUN dotnet restore
+RUN dotnet restore App3.csproj
 
 # Copiar o restante dos arquivos e compilar a aplicação
 COPY /App3 ./
-RUN dotnet publish -c Release -o /out
+RUN dotnet publish App3.csproj -c Release -o /out
 
 # Etapa 2: Servir a aplicação com Nginx
 FROM nginx:alpine AS final
