@@ -1,22 +1,13 @@
-# Etapa 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build-env
+RUN apk add nodejs
+RUN apk add npm
 WORKDIR /app
+COPY . ./
+RUN npm --prefix	CommonComponents install
+RUN dotnet publish "App3/App3.csproj" -c Release -o output
 
-# Copiar os arquivos de projeto e restaurar as dependências
-COPY /App3/*.csproj ./
-RUN dotnet restore App3.csproj
-
-# Copiar o restante dos arquivos e compilar a aplicação
-COPY /App3 ./
-RUN dotnet publish App3.csproj -c Release -o /out
-
-# Etapa 2: Servir a aplicação com Nginx
-FROM nginx:alpine AS final
-WORKDIR /usr/share/nginx/html
-
-# Remover arquivos padrão do Nginx e copiar os arquivos da aplicação
-RUN rm -rf ./*
-COPY --from=build /out/wwwroot .
-
-# Expor a porta 80 para o acesso ao container
+FROM nginx:alpine
+WORKDIR /user/share/nginx/html
+COPY --from=build-env /app/output/wwwroot .
+COPY Web/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
