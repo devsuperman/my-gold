@@ -33,7 +33,7 @@ RUN dotnet restore "App3/App3.csproj"
 
 # Copiar o restante dos arquivos e compilar a aplicação
 COPY . .
-RUN dotnet publish "/App3/App3.csproj" -c Release -o /out
+RUN dotnet publish "App3/App3.csproj" -c Release -o /out
 
 # Etapa 2: Servir a aplicação com Nginx
 FROM nginx:alpine AS final
