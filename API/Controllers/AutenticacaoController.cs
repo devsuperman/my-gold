@@ -10,7 +10,7 @@ namespace API.Controllers
     {
         private readonly IAutenticacaoService _autenticacaoService = autenticacaoService;
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public IActionResult Get() => Ok($"Olá {User.Identity.Name}");
 
         [HttpPost]
