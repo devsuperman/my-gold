@@ -42,6 +42,6 @@ WORKDIR /usr/share/nginx/html
 # Remover arquivos padrão do Nginx e copiar os arquivos da aplicação
 RUN rm -rf ./*
 COPY --from=build /out/wwwroot .
-
+COPY /App3/nginx.conf /etc/nginx/nginx.conf
 # Expor a porta 80 para o acesso ao container
-EXPOSE 80
+EXPOSE 8080
