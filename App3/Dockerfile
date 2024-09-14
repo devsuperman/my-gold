@@ -23,5 +23,6 @@ WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
 COPY --from=publish /app/publish/wwwroot .
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
