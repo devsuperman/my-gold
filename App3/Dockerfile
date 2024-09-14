@@ -1,22 +1,27 @@
-# Etapa 1: Build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
+EXPOSE 5170
 
-# Copiar os arquivos de projeto e restaurar as dependências
-COPY /App3/App3.csproj ./
-RUN dotnet restore
+ENV ASPNETCORE_URLS=http://+:5170
 
-# Copiar o restante dos arquivos e compilar a aplicação
-COPY . ./
-RUN dotnet publish -c Release -o /out
+USER app
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG configuration=Release
+WORKDIR /src
+COPY ["App3/App3.csproj", "App3/"]
+RUN dotnet restore "App3/App3.csproj"
+COPY . .
+WORKDIR "/src/App3"
+RUN dotnet build "App3.csproj" -c $configuration -o /app/build
 
-# Etapa 2: Servir a aplicação com Nginx
+FROM build AS publish
+ARG configuration=Release
+RUN dotnet publish "App3.csproj" -c $configuration -o /app/publish /p:UseAppHost=false
+
 FROM nginx:alpine AS final
 WORKDIR /usr/share/nginx/html
 
-# Remover arquivos padrão do Nginx e copiar os arquivos da aplicação
 RUN rm -rf ./*
-COPY --from=build /out/wwwroot .
+COPY --from=publish /out/wwwroot .
 
-# Expor a porta 80 para o acesso ao container
 EXPOSE 80
