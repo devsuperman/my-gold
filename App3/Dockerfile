@@ -22,6 +22,6 @@ FROM nginx:alpine AS final
 WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./*
-COPY --from=publish /out/wwwroot .
+COPY --from=publish /app/publish/wwwroot .
 
 EXPOSE 80
