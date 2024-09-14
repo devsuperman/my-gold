@@ -23,7 +23,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -51,7 +50,7 @@ builder.Services.AddScoped<IGastosRepository, GastosRepository>();
 
 builder.Services.AddDbContext<Contexto>(
         options => options.UseNpgsql(ConnectionHelper.GetConnectionString(builder.Configuration),
-        a => a.MigrationsAssembly("App3")));
+        a => a.MigrationsAssembly("API")));
 
 var portVar = Environment.GetEnvironmentVariable("PORT");
 
