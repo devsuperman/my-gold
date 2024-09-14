@@ -3,12 +3,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copia os arquivos do projeto e restaura as dependências
-COPY /App3/App3.csproj /App3
-RUN dotnet restore /App3/App3.csproj
+COPY ["App3/App3.csproj", "App3/"]
+RUN dotnet restore "App3/App3.csproj"
 
 # Copia os arquivos restantes e publica a aplicação
 COPY . ./
-RUN dotnet publish /App3/App3.csproj -c Release -o /out
+RUN dotnet publish "App3/App3.csproj" -c Release -o /out
 
 # Etapa 2: Imagem final com Nginx para servir a aplicação
 FROM nginx:alpine AS final
