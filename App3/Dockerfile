@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copiar os arquivos de projeto e restaurar as dependências
-COPY *.csproj ./
+COPY /App3/App3.csproj ./
 RUN dotnet restore
 
 # Copiar o restante dos arquivos e compilar a aplicação
