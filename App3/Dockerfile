@@ -37,11 +37,7 @@ RUN dotnet publish "App3/App3.csproj" -c Release -o /out
 
 # Etapa 2: Servir a aplicação com Nginx
 FROM nginx:alpine AS final
-WORKDIR /usr/share/nginx/html
-
-# Remover arquivos padrão do Nginx e copiar os arquivos da aplicação
-RUN rm -rf ./*
-COPY --from=build /out/wwwroot .
+WORKDIR /app
+EXPOSE 80
+COPY --from=build /app/out/wwwroot /usr/share/nginx/html
 COPY /App3/nginx.conf /etc/nginx/nginx.conf
-# Expor a porta 80 para o acesso ao container
-EXPOSE 8080
