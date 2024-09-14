@@ -19,7 +19,7 @@ RUN rm -rf ./*
 COPY --from=build /out/wwwroot .
 
 # Copia o arquivo de configuração personalizado do Nginx
-COPY /App3/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /App3/nginx.conf /etc/nginx/nginx.conf
 
 # Expõe a porta 80 (Railway automaticamente mapeia as portas necessárias)
 EXPOSE 80
