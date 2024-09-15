@@ -1,4 +1,5 @@
 ﻿@page "/"
+@attribute [Authorize]
 
 <PageTitle>Início</PageTitle>
 
@@ -9,14 +10,19 @@
     </h1>
 
     <div>
-        <InputDate Type="InputDateType.Month" class="form-control" @bind-Value="MesAno" @bind-Value:after="CarregarGastos" />
+        <InputDate Type="InputDateType.Month" class="form-control" @bind-Value="MesAno"
+            @bind-Value:after="CarregarGastos" />
     </div>
 
 </form>
 
 <hr>
-<AuthorizeView>
-
+@if (Model is null)
+{
+    <Loading />
+}
+else
+{
     <ul class="list-group">
         @foreach (var item in Model)
         {
@@ -47,10 +53,10 @@
             Anadir Gasto
         </a>
     </div>
+}
 
-</AuthorizeView>
 @code {
-    public List<Tuple<string, decimal>> Model { get; set; } = new();
+    public List<Tuple<string, decimal>> Model;
     public DateTime MesAno { get; set; } = DateTime.Today;
     @inject AuthenticationStateProvider _auth;
 
@@ -61,10 +67,7 @@
 
     public async Task CarregarGastos()
     {
-        var state = await _auth.GetAuthenticationStateAsync();
-
-        if (state.User.Identity.IsAuthenticated)
-            Model = await _gastosRepository.ListarPorCategoria(MesAno);
+        Model = await _gastosRepository.ListarPorCategoria(MesAno);
     }
 
 

@@ -21,7 +21,7 @@
 
 @if (lista is null)
 {
-    <h2>loading</h2>
+    <Loading/>
 }
 else
 {
@@ -41,7 +41,7 @@ else
 @code {
 
     List<Categoria> lista;
-    
+
     protected override async Task OnInitializedAsync()
     {
         lista = await _categoriasRepository.ListAll();
