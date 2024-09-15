@@ -10,4 +10,3 @@ RUN dotnet publish "App3/App3.csproj" -c Release -o /out
 FROM nginx:alpine AS final
 COPY --from=build /out/wwwroot /usr/share/nginx/html
 COPY /App3/nginx.conf /etc/nginx/nginx.conf
-
