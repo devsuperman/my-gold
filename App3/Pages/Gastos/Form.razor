@@ -1,5 +1,5 @@
 ﻿@page "/gastos/form/{Id:int?}"
-@* @attribute [Authorize] *@
+@attribute [Authorize]
 
 <PageTitle>
     @Titulo
@@ -125,15 +125,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        @* Categorias = await _categoriasRepository.ListAll();
+        Categorias = await _categoriasRepository.ListAll();
 
         if (Id > 0)
-            Model = await _gastosRepository.Get(Id); *@
+            Model = await _gastosRepository.Get(Id);
     }
 
     public async Task Save()
     {
-        @* await _gastosRepository.Upsert(Model); *@
+        await _gastosRepository.Upsert(Model);
         _navigation.NavigateTo("/gastos");
     }
 }
