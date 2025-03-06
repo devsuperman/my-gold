@@ -1,5 +1,5 @@
 ﻿@page "/gastos/form/{Id:int?}"
-@attribute [Authorize]
+@* @attribute [Authorize] *@
 
 <PageTitle>
     @Titulo
@@ -25,10 +25,10 @@
     </div>
 
     <div class="mb-3">
-        <label for="CategoriaId" class="form-label">Categoria</label>        
+        <label for="CategoriaId" class="form-label">Categoria</label>
         <InputSelect class="form-select" @bind-Value="Model.CategoriaId">
             <option value=''>Selecione</option>
-            
+
             @foreach (var cat in Categorias)
             {
                 <option value='@cat.Id'>@cat.Nombre</option>
@@ -45,9 +45,14 @@
     </div>
 
     <div class="mb-3">
-        <label for="Valor" class="form-label">Valor</label>
-        <InputNumber class="form-control" @bind-Value="Model.Valor"/>
+        <label for="Valor" class="form-label">Real</label>
+        <InputNumber class="form-control" @bind-Value="Model.Valor" @bind-Value:format="F2" @oninput="UpdateGuarani" />
         <ValidationMessage For="() => Model.Valor" class="text-danger" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Valor" class="form-label">Guarani</label>
+        <InputNumber class="form-control" @bind-Value="Guarani" @oninput="UpdateReal" />
     </div>
 
     <div class="d-flex justify-content-end">
@@ -70,25 +75,65 @@
 
     public string Titulo => Id != 0 ? "Editar Gasto" : "Criar Gasto";
 
+    public const decimal Cambio = 1300;
+    public decimal? Guarani { get; set; }
+
     [Parameter]
     public int Id { get; set; }
 
     [SupplyParameterFromForm]
     public Gasto Model { get; set; } = new();
 
+
     public List<Categoria> Categorias { get; set; } = new();
+
+    public void UpdateGuarani(ChangeEventArgs e)
+    {
+        var input = e.Value.ToString();
+
+        if (string.IsNullOrEmpty(input))
+        {
+            Guarani = null;
+            return;
+        }
+
+        var real = Convert.ToDecimal(input);
+        Guarani = real * Cambio;
+        Console.WriteLine($"UpdateGuarani Real {real} Guarani {Guarani}");
+    }
+
+    public void UpdateReal(ChangeEventArgs e)
+    {
+        var input = e.Value.ToString();
+
+        if (string.IsNullOrEmpty(input))
+        {
+            Model.Valor = null;
+            return;
+        }
+
+        var guarani = Convert.ToDecimal(input);
+
+        if (guarani < Cambio)
+            return;
+
+        Model.Valor = Math.Round(guarani / Cambio, 0);
+
+        Console.WriteLine($"UpdateReal Real {Model.Valor} Guarani {guarani}");
+    }
+
 
     protected override async Task OnInitializedAsync()
     {
-        Categorias = await _categoriasRepository.ListAll();
+        @* Categorias = await _categoriasRepository.ListAll();
 
         if (Id > 0)
-            Model = await _gastosRepository.Get(Id);
+            Model = await _gastosRepository.Get(Id); *@
     }
 
     public async Task Save()
     {
-        await _gastosRepository.Upsert(Model);
+        @* await _gastosRepository.Upsert(Model); *@
         _navigation.NavigateTo("/gastos");
     }
 }
