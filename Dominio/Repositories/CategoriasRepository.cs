@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Dominio.Interfaces;
 using Dominio.Models;
 using Dominio.Data;
 
 namespace Dominio.Repositories;
 
-public class CategoriasRepository(Contexto db) : ICategoriasRepository
+public class CategoriasRepository(Contexto db)
 {
     private readonly Contexto _db = db;
 

@@ -108,7 +108,7 @@
 
         if (string.IsNullOrEmpty(input))
         {
-            Model.Valor = null;
+            Model.Valor = 0;
             return;
         }
 
@@ -125,15 +125,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Categorias = await _categoriasRepository.ListAll();
+        Categorias = await _categoriasService.ListAll();
 
         if (Id > 0)
-            Model = await _gastosRepository.Get(Id);
+            Model = await _gastosService.Get(Id);
     }
 
     public async Task Save()
     {
-        await _gastosRepository.Upsert(Model);
+        await _gastosService.Upsert(Model);
         _navigation.NavigateTo("/gastos");
     }
 }

@@ -13,8 +13,7 @@
 @using App3.Components
 
 @using Dominio.Models
-@using Dominio.DTOs
 @inject NavigationManager _navigation
 
-@inject Dominio.Interfaces.IGastosRepository _gastosRepository
-@inject Dominio.Interfaces.ICategoriasRepository _categoriasRepository
+@inject App3.Services.GastosService _gastosService
+@inject App3.Services.CategoriasService _categoriasService

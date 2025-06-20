@@ -14,8 +14,8 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<AuthenticationStateProvider, ClientAuthenticationProvider>();
 builder.Services.AddScoped<ITokenStorage, LocalStorageToken>();
 builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
-builder.Services.AddScoped<ICategoriasRepository, CategoriasService>();
-builder.Services.AddScoped<IGastosRepository, GastosService>();
+builder.Services.AddScoped<CategoriasService>();
+builder.Services.AddScoped<GastosService>();
 
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");

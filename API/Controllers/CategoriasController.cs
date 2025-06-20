@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Dominio.Interfaces;
+using Dominio.Repositories;
 using Dominio.Models;
 
 namespace API.Controllers;
@@ -8,9 +8,9 @@ namespace API.Controllers;
 [Authorize]
 [ApiController]
 [Route("api/categorias")]
-public class CategoriasController(ICategoriasRepository respository) : ControllerBase
+public class CategoriasController(CategoriasRepository respository) : ControllerBase
 {
-    private readonly ICategoriasRepository _repository = respository;
+    private readonly CategoriasRepository _repository = respository;
 
     [HttpGet]
     public async Task<IActionResult> Get()

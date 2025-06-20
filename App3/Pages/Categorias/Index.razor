@@ -44,6 +44,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        lista = await _categoriasRepository.ListAll();
+        lista = await _categoriasService.ListAll();
     }
 }

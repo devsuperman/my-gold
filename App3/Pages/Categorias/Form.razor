@@ -54,12 +54,12 @@
     protected override async Task OnInitializedAsync()
     {
         if (Id > 0)
-            Model = await _categoriasRepository.Get(Id);
+            Model = await _categoriasService.Get(Id);
     }
 
     public async Task Save()
     {
-        await _categoriasRepository.Upsert(Model);
+        await _categoriasService.Upsert(Model);
         _navigation.NavigateTo("/categorias");
     }
 }

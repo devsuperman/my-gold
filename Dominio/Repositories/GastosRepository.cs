@@ -1,12 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Dominio.Interfaces;
 using Dominio.Models;
-using Dominio.DTOs;
 using Dominio.Data;
 
 namespace Dominio.Repositories;
 
-public class GastosRepository(Contexto db) : IGastosRepository
+public class GastosRepository(Contexto db)
 {
     private readonly Contexto _db = db;
 
@@ -15,7 +13,7 @@ public class GastosRepository(Contexto db) : IGastosRepository
         return await _db.Gastos.FindAsync(id);
     }
 
-    public async Task<List<ListarGasto>> ListAll(DateTime mesAno)
+    public async Task<List<Gasto>> ListAll(DateTime mesAno)
     {
         try
         {
@@ -28,14 +26,14 @@ public class GastosRepository(Contexto db) : IGastosRepository
 
             var lista = await query
                 .OrderByDescending(o => o.Fecha)
-                .Select(s => new ListarGasto
+                .Select(s => new Gasto
                 {
                     Id = s.Id,
                     Fecha = s.Fecha,
                     Nombre = s.Nombre,
-                    Valor = s.Valor.Value,
+                    Valor = s.Valor,
                     CategoriaId = s.CategoriaId,
-                    Categoria = s.Categoria.Nombre
+                    CategoriaNome = s.Categoria.Nombre
                 })
                 .ToListAsync();
 
@@ -53,39 +51,6 @@ public class GastosRepository(Contexto db) : IGastosRepository
         }
 
 
-    }
-
-    public async Task<List<Tuple<string, decimal>>> ListarPorCategoria(DateTime mesAno)
-    {
-        try
-        {
-            var totaisPorCategoria = await _db.Gastos
-                .Where(w =>
-                    w.Fecha.Month == mesAno.Month &&
-                    w.Fecha.Year == mesAno.Year)
-                .Select(s => new
-                {
-                    Categoria = s.Categoria.Nombre,
-                    s.Valor
-                })
-                .GroupBy(g => g.Categoria)
-                .Select(s => new Tuple<string, decimal>(s.Key, s.Sum(d => d.Valor.Value)))
-                .ToListAsync();
-
-            totaisPorCategoria = totaisPorCategoria.OrderByDescending(o => o.Item2).ToList();
-
-            return totaisPorCategoria;
-        }
-        catch (Npgsql.PostgresException ex)
-        {
-            if (ex.Message.Contains("starting up"))
-            {
-                await Task.Delay(5000);
-                return await ListarPorCategoria(mesAno);
-            }
-
-            throw;
-        }
     }
 
     public async Task<Gasto> Upsert(Gasto model)

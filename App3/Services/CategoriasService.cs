@@ -1,20 +1,17 @@
 ﻿using System.Net.Http.Json;
-using Dominio.Interfaces;
 using Dominio.Models;
 
 namespace App3.Services;
 
-public class CategoriasService(HttpClient httpClient) : ICategoriasRepository
+public class CategoriasService(HttpClient httpClient)
 {
     private readonly HttpClient _httpClient = httpClient;
     private List<Categoria> _categorias = [];
 
     public async Task CarregarCategorias(bool force = false)
     {
-        if (_categorias.Any() && !force)
-            return;
-
-        _categorias = await _httpClient.GetFromJsonAsync<List<Categoria>>("/api/categorias");
+        if (!_categorias.Any() || force)
+            _categorias = await _httpClient.GetFromJsonAsync<List<Categoria>>("/api/categorias");
     }
     public async Task<Categoria> Get(int id)
     {
