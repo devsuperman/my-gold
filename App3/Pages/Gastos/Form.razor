@@ -144,7 +144,10 @@
         Categorias = await _categoriasService.ListAll();
 
         if (Id > 0)
+        {
             Model = await _gastosService.Get(Id);
+            Guarani = Model.Valor * Cambio;
+        }
     }
 
     public async Task Save()
