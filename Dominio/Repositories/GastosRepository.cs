@@ -15,7 +15,7 @@ public class GastosRepository(Contexto db) : IGastosRepository
         return await _db.Gastos.FindAsync(id);
     }
 
-    public async Task<List<ListarGasto>> ListAll(DateTime mesAno, int categoriaId)
+    public async Task<List<ListarGasto>> ListAll(DateTime mesAno)
     {
         try
         {
@@ -25,9 +25,6 @@ public class GastosRepository(Contexto db) : IGastosRepository
                 .Where(w =>
                     w.Fecha.Month == mesAno.Month &&
                     w.Fecha.Year == mesAno.Year);
-
-            if (categoriaId > 0)
-                query = query.Where(w => w.CategoriaId == categoriaId);
 
             var lista = await query
                 .OrderByDescending(o => o.Fecha)
@@ -49,7 +46,7 @@ public class GastosRepository(Contexto db) : IGastosRepository
             if (ex.Message.Contains("starting up"))
             {
                 await Task.Delay(5000);
-                return await ListAll(mesAno, categoriaId);
+                return await ListAll(mesAno);
             }
 
             throw;

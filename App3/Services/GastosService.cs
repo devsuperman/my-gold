@@ -14,9 +14,9 @@ public class GastosService(HttpClient httpClient) : IGastosRepository
         return await _httpClient.GetFromJsonAsync<Gasto>($"/api/gastos/{id}");
     }
 
-    public async Task<List<ListarGasto>> ListAll(DateTime mesAno, int categoriaId)
+    public async Task<List<ListarGasto>> ListAll(DateTime mesAno)
     {
-        var url = $"/api/gastos?mesAno={mesAno:yyyy-MM}&categoriaId={categoriaId}";
+        var url = $"/api/gastos?mesAno={mesAno:yyyy-MM}";
         return await _httpClient.GetFromJsonAsync<List<ListarGasto>>(url);
     }
 

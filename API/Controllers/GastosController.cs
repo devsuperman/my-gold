@@ -16,7 +16,7 @@ public class GastosController(IGastosRepository repository) : ControllerBase
     public async Task<IActionResult> GetAll(int categoriaId = 0, DateTime? mesAno = null)
     {
         mesAno ??= DateTime.Today;
-        var lista = await _repository.ListAll(mesAno.Value, categoriaId);
+        var lista = await _repository.ListAll(mesAno.Value);
         return Ok(lista);
     }
     
