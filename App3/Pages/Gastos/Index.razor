@@ -98,6 +98,7 @@ else
     }
     public async Task BuscarGastosDoMes()
     {
+        listaGastos = null;
         listaGastos = await _gastosService.ListAll(MesAno);
         FiltrarGastos();
     }

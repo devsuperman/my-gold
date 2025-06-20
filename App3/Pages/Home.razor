@@ -67,6 +67,7 @@ else
 
     public async Task CarregarGastos()
     {
+        Model = null;
         Model = await _gastosService.ListarPorCategoria(MesAno);
     }
 
