@@ -40,7 +40,8 @@
         <div class="d-flex">
 
             <div class="flex-grow-1">
-                <InputDate Type="InputDateType.Month" class="form-control" @bind-Value="MesAno" @bind-Value:after="BuscarGastosDoMes" />
+                <InputDate Type="InputDateType.Month" class="form-control" @bind-Value="MesAno"
+                    @bind-Value:after="BuscarGastosDoMes" />
             </div>
 
         </div>
@@ -49,7 +50,7 @@
 
 </form>
 
-@if (listaGastos is null)
+@if (gastosFiltrados is null)
 {
     <Loading />
 }
@@ -57,7 +58,7 @@ else
 {
 
     <div class="list-group">
-        @foreach (var item in listaGastos)
+        @foreach (var item in gastosFiltrados)
         {
             <a class="list-group-item list-group-item-action d-flex" href="/gastos/form/@item.Id">
                 <span class='flex-grow-1'>
@@ -74,7 +75,7 @@ else
                 Total
             </span>
             <span>
-                R$ @listaGastos.Sum(s => s.Valor).ToString("N2")
+                R$ @gastosFiltrados.Sum(s => s.Valor).ToString("N2")
             </span>
         </a>
 
@@ -93,20 +94,21 @@ else
     protected override async Task OnInitializedAsync()
     {
         listaCategorias = await _categoriasRepository.ListAll();
-        listaGastos = await _gastosRepository.ListAll(MesAno);
+        await BuscarGastosDoMes();
     }
-
-    public void FiltrarGastos()
-    {
-        if (CategoriaId == 0)
-            gastosFiltrados = listaGastos;
-
-        gastosFiltrados = listaGastos.Where(w => w.CategoriaId == CategoriaId).ToList();
-    }
-
     public async Task BuscarGastosDoMes()
     {
         listaGastos = await _gastosRepository.ListAll(MesAno);
         FiltrarGastos();
     }
+
+    public void FiltrarGastos()
+    {
+        gastosFiltrados = listaGastos;
+
+        if (CategoriaId > 0)
+            gastosFiltrados = listaGastos.Where(w => w.CategoriaId == CategoriaId).ToList();
+            
+    }
+
 }
