@@ -1,4 +1,4 @@
-﻿namespace Dominio.Models;
+﻿namespace API.Models;
 public class LoginResponse
 {
     public string TokenType { get; set; } = string.Empty;

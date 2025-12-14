@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
-using Dominio.Interfaces;
 using System.Text.Json;
 
 namespace API.Services;
 
-public class ServerAutenticationProvider(ITokenStorage tokenStorage) : AuthenticationStateProvider
+public class ServerAutenticationProvider(SaveToken tokenStorage) : AuthenticationStateProvider
 {
-    private readonly ITokenStorage _tokenStorage = tokenStorage;
+    private readonly SaveToken _tokenStorage = tokenStorage;
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {

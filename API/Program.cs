@@ -2,12 +2,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using Dominio.Repositories;
-using Dominio.Interfaces;
+using API.Repositories;
 using API.Extensions;
-using Dominio.Data;
 using API.Services;
 using System.Text;
+using API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,8 +42,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAutenticationProvider>();
 builder.Services.AddSingleton<JwtTokenGenerator>();
-builder.Services.AddScoped<ITokenStorage, SaveToken>();
-builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
+builder.Services.AddScoped<SaveToken>();
+builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<CategoriasRepository>();
 builder.Services.AddScoped<GastosRepository>();
 

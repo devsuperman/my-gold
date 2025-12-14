@@ -1,8 +1,6 @@
-﻿using Dominio.Interfaces;
+﻿namespace API.Services;
 
-namespace API.Services;
-
-public class SaveToken : ITokenStorage
+public class SaveToken
 {
     private string _token { get; set; } = string.Empty;
     public async Task<string> Get()

@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using API.Models;
 
-namespace Dominio.Models;
+namespace API.Models;
 
 public class Gasto
 {
@@ -24,7 +25,7 @@ public class Gasto
     [Required(ErrorMessage = "La Categoria es obligatoria")]
     public int CategoriaId { get; set; }
 
-    public Categoria? Categoria { get; set; }
+    public Categoria Categoria { get; set; }
 
     [NotMapped]
     public string CategoriaNome { get; set; } = string.Empty;

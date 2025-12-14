@@ -30,13 +30,13 @@
     @inject ILogger<Login> Logger
     @using System.ComponentModel.DataAnnotations
     @inject AuthenticationStateProvider _authenticationProvider
-    @inject Dominio.Interfaces.IAutenticacaoService _autenticacaoService
+    
 
     [SupplyParameterFromForm]
     private LoginModel Model { get; set; } = new();
 
     [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
+    private string ReturnUrl { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {

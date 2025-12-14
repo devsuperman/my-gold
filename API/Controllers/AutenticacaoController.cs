@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Dominio.Interfaces;
+using API.Services;
 
 namespace API.Controllers
 {
     [ApiController]
     [Route("api/autenticacao")]
-    public partial class AutenticacaoController(IAutenticacaoService autenticacaoService) : ControllerBase
+    public partial class AutenticacaoController(AutenticacaoService autenticacaoService) : ControllerBase
     {
-        private readonly IAutenticacaoService _autenticacaoService = autenticacaoService;
+        private readonly AutenticacaoService _autenticacaoService = autenticacaoService;
 
         [HttpGet]
         public IActionResult Get() => Ok($"Olá {User.Identity.Name}");

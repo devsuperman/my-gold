@@ -1,10 +1,9 @@
 ﻿using System.Net.Http.Json;
-using Dominio.Interfaces;
-using Dominio.Models;
+using App3.Models;
 
 namespace App3.Services;
 
-public class AutenticacaoService(HttpClient httpClient) : IAutenticacaoService
+public class AutenticacaoService(HttpClient httpClient)
 {
     private readonly HttpClient _httpClient = httpClient;
 

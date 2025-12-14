@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Dominio.Repositories;
-using Dominio.Models;
+using API.Repositories;
+using API.Models;
 
 namespace API.Controllers;
 

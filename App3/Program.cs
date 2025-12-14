@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
-using Dominio.Interfaces;
 using App3.Services;
 using App3;
 
@@ -12,8 +11,8 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddScoped<AuthenticationStateProvider, ClientAuthenticationProvider>();
-builder.Services.AddScoped<ITokenStorage, LocalStorageToken>();
-builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
+builder.Services.AddScoped<LocalStorageToken>();
+builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<CategoriasService>();
 builder.Services.AddScoped<GastosService>();
 

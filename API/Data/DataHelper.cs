@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dominio.Data;
+namespace API.Data;
 
 public static class DataHelper
 {

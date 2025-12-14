@@ -1,9 +1,8 @@
 ﻿using Microsoft.JSInterop;
-using Dominio.Interfaces;
 
 namespace App3.Services;
 
-public class LocalStorageToken(IJSRuntime jsRuntime) : ITokenStorage
+public class LocalStorageToken(IJSRuntime jsRuntime)
 {
     private readonly IJSRuntime _jsRuntime = jsRuntime;
     private const string KEY = "token";

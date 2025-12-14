@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using Dominio.Interfaces;
 using System.Text.Json;
 
 namespace App3.Services;
 
-public class ClientAuthenticationProvider(ITokenStorage tokenStorage, HttpClient http, ILogger<ClientAuthenticationProvider> logger) : AuthenticationStateProvider
+public class ClientAuthenticationProvider(LocalStorageToken tokenStorage, HttpClient http, ILogger<ClientAuthenticationProvider> logger) : AuthenticationStateProvider
 {
     private readonly ILogger<ClientAuthenticationProvider> _logger = logger;
-    private readonly ITokenStorage _tokenStorage = tokenStorage;
+    private readonly LocalStorageToken _tokenStorage = tokenStorage;
     private readonly HttpClient _http = http;
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {

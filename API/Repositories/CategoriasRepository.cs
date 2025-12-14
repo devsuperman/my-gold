@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Dominio.Models;
-using Dominio.Data;
+using API.Models;
+using API.Data;
 
-namespace Dominio.Repositories;
+namespace API.Repositories;
 
 public class CategoriasRepository(Contexto db)
 {
