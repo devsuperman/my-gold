@@ -49,7 +49,7 @@
     public int Id { get; set; }
 
     [SupplyParameterFromForm]
-    public Categoria Model { get; set; }
+    public Categoria Model { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {

@@ -98,7 +98,7 @@
     public int Id { get; set; }
 
     [SupplyParameterFromForm]
-    public Gasto Model { get; set; }
+    public Gasto Model { get; set; } = new();
 
 
     public List<Categoria> Categorias { get; set; } = new();
