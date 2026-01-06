@@ -62,7 +62,7 @@ else
         {
             <a class="list-group-item list-group-item-action d-flex" href="/gastos/form/@item.Id">
                 <span class='flex-grow-1'>
-                    @item.Fecha.ToShortDateString() - @item.CategoriaNome @item.Nombre
+                    @item.Fecha.Value.ToShortDateString() - @item.CategoriaNome @item.Nombre
                 </span>
                 <span>
                     R$ @item.Valor.ToString("N2")

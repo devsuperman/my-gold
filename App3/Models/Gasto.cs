@@ -11,7 +11,7 @@ public class Gasto
 
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "La Fecha es obligatoria")]
-    public DateTime Fecha { get; set; } = DateTime.Today;
+    public DateTime? Fecha { get; set; } = DateTime.Today;
 
 
     [DataType(DataType.Currency)]

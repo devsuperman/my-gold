@@ -5,12 +5,16 @@
     @Titulo
 </PageTitle>
 
-<h1>
-    <i class="bi bi bi-coin"></i>
-    @Titulo
-</h1>
+<div class="d-flex">
+    <MudIconButton Icon="@Icons.Material.Filled.ArrowBack" Href="/gastos" Size="Size.Small"/>
+    <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Size="Size.Large" />
+    <MudText Typo="Typo.h4" class='flex-grow-1'>
+        @Titulo
+    </MudText>
+</div>
 
-<hr />
+
+<MudDivider />
 
 <EditForm method="post" Model="Model" OnValidSubmit="Save" FormName="form" Enhance>
 
@@ -19,67 +23,55 @@
     <input type="hidden" name="Gasto.Id" value="@Id" />
 
     <div class="mb-3">
-        <label for="Fecha" class="form-label">Fecha</label>
-        <InputDate id="Fecha" @bind-Value="Model.Fecha" class="form-control" />
+        <MudDatePicker Label="Fecha" @bind-Date="Model.Fecha"/>        
         <ValidationMessage For="() => Model.Fecha" class="text-danger" />
     </div>
 
     <div class="mb-3">
-        <label for="CategoriaId" class="form-label">Categoria</label>
-        <InputSelect class="form-select" @bind-Value="Model.CategoriaId">
-            <option value=''>Selecione</option>
-
+        <MudSelect @bind-Value="Model.CategoriaId" Label="Categoria">
+            <MudSelectItem Value="0">Selecione</MudSelectItem>
             @foreach (var cat in Categorias)
             {
-                <option value='@cat.Id'>@cat.Nombre</option>
+                <MudSelectItem Value="@cat.Id">@cat.Nombre</MudSelectItem>
             }
+        </MudSelect>
 
-        </InputSelect>
         <ValidationMessage For="() => Model.CategoriaId" class="text-danger" />
     </div>
 
     <div class="mb-3">
-        <label for="Nombre" class="form-label">Nombre</label>
-        <InputText id="Nombre" @bind-Value="Model.Nombre" class="form-control" />
+        <MudTextField @bind-Value="Model.Nombre" Label="Nombre" Variant="Variant.Text"></MudTextField>
         <ValidationMessage For="() => Model.Nombre" class="text-danger" />
     </div>
 
     <div class="mb-3">
-        <label for="Valor" class="form-label">Real</label>
-        <InputNumber class="form-control" @bind-Value="Model.Valor" @bind-Value:format="F2" @oninput="UpdateGuarani" />
+        <MudTextField Label="Real" Variant="Variant.Text" @bind-Value="Model.Valor" @bind-Value:format="F2"
+            @oninput="UpdateGuarani" />
         <ValidationMessage For="() => Model.Valor" class="text-danger" />
     </div>
 
     <div class="mb-3">
-        <label for="Valor" class="form-label">Guarani</label>
-        <InputNumber class="form-control" @bind-Value="Guarani" @oninput="UpdateReal" />
+        <MudTextField Label="Guarani" Variant="Variant.Text" @bind-Value="Guarani" @oninput="UpdateReal" />
     </div>
 
     <div class="d-flex justify-content-end">
 
-        <a href="/gastos" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i>
-            Voltar
-        </a>
 
-        <button type="submit" class="btn btn-primary ms-2" disabled="@disableButton">
-
-            @if (disableButton)
-            {
+        @if (disableButton)
+        {
+            <button type="submit" class="btn btn-primary ms-2" disabled="@disableButton">
                 <div class="d-flex align-items-center">
                     <div class="spinner-border text-primery me-2" role="status">
                         <span class="visually-hidden">Cargando...</span>
                     </div>
                     <span> Cargando...</span>
                 </div>
-            }
-            else
-            {
-                <span>
-                    <i class="bi bi-check-circle"></i> Salvar Gasto
-                </span>
-            }
-        </button>
+            </button>
+        }
+        else
+        {
+            <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Save" ButtonType="ButtonType.Submit" />
+        }
 
     </div>
 

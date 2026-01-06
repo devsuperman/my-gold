@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor.Services;
 using App3.Services;
 using App3;
 
+
+
+
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+builder.Services.AddMudServices();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();

@@ -12,7 +12,7 @@ public class GastosService(HttpClient httpClient)
     {
         var url = $"/api/gastos?mesAno={mesAno:yyyy-MM}";
 
-        if (!_gastos.Any(a => a.Fecha.Month == mesAno.Month) || force)
+        if (!_gastos.Any(a => a.Fecha.Value.Month == mesAno.Month) || force)
             _gastos = await _httpClient.GetFromJsonAsync<List<Gasto>>(url);
     }
 
@@ -42,7 +42,7 @@ public class GastosService(HttpClient httpClient)
         var client = await _httpClient.PostAsJsonAsync("/api/gastos", gasto);
         var response = await client.Content.ReadFromJsonAsync<Gasto>();
 
-        await CarregarGastos(gasto.Fecha, force: true);
+        await CarregarGastos(gasto.Fecha.Value, force: true);
 
         return response;
     }
