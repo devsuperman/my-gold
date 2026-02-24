@@ -45,9 +45,8 @@
     </div>
 
     <div class="mb-3">
-        <label for="Valor" class="form-label">Real</label>
-        <InputNumber class="form-control" @bind-Value="Model.Valor" @bind-Value:format="F2" />
-        <ValidationMessage For="() => Model.Valor" class="text-danger" />
+        <label for="Valor" class="form-label">Valor</label>
+        <InputNumber class="form-control" @bind-Value="Valor" @bind-Value:format="F2" required/>
     </div>
 
     <div class="d-flex justify-content-end">
@@ -93,6 +92,8 @@
     [SupplyParameterFromForm]
     public Gasto Model { get; set; } = new();
 
+    public decimal? Valor { get; set; }
+
     public List<Categoria> Categorias { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
@@ -102,11 +103,13 @@
         if (Id > 0)
         {
             Model = await _gastosService.Get(Id);
+            Valor = Model.Valor;
         }
     }
 
     public async Task Save()
     {
+        Model.Valor = Valor.Value;
         disableButton = true;
         await _gastosService.Upsert(Model);
         _navigation.NavigateTo("/gastos");
