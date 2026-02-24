@@ -46,13 +46,8 @@
 
     <div class="mb-3">
         <label for="Valor" class="form-label">Real</label>
-        <InputNumber class="form-control" @bind-Value="Model.Valor" @bind-Value:format="F2" @oninput="UpdateGuarani" />
+        <InputNumber class="form-control" @bind-Value="Model.Valor" @bind-Value:format="F2" />
         <ValidationMessage For="() => Model.Valor" class="text-danger" />
-    </div>
-
-    <div class="mb-3">
-        <label for="Valor" class="form-label">Guarani</label>
-        <InputNumber class="form-control" @bind-Value="Guarani" @oninput="UpdateReal" />
     </div>
 
     <div class="d-flex justify-content-end">
@@ -90,9 +85,7 @@
 @code {
 
     public string Titulo => Id != 0 ? "Editar Gasto" : "Criar Gasto";
-    public const decimal Cambio = 1300;
     public bool disableButton = false;
-    public decimal? Guarani { get; set; }
 
     [Parameter]
     public int Id { get; set; }
@@ -100,44 +93,7 @@
     [SupplyParameterFromForm]
     public Gasto Model { get; set; } = new();
 
-
     public List<Categoria> Categorias { get; set; } = new();
-
-    public void UpdateGuarani(ChangeEventArgs e)
-    {
-        var input = e.Value.ToString();
-
-        if (string.IsNullOrEmpty(input))
-        {
-            Guarani = null;
-            return;
-        }
-
-        var real = Convert.ToDecimal(input);
-        Guarani = real * Cambio;
-        Console.WriteLine($"UpdateGuarani Real {real} Guarani {Guarani}");
-    }
-
-    public void UpdateReal(ChangeEventArgs e)
-    {
-        var input = e.Value.ToString();
-
-        if (string.IsNullOrEmpty(input))
-        {
-            Model.Valor = 0;
-            return;
-        }
-
-        var guarani = Convert.ToDecimal(input);
-
-        if (guarani < Cambio)
-            return;
-
-        Model.Valor = Math.Round(guarani / Cambio, 0);
-
-        Console.WriteLine($"UpdateReal Real {Model.Valor} Guarani {guarani}");
-    }
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -146,7 +102,6 @@
         if (Id > 0)
         {
             Model = await _gastosService.Get(Id);
-            Guarani = Model.Valor * Cambio;
         }
     }
 
