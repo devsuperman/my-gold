@@ -23,7 +23,7 @@
     <ShellContent
         Title="Expenses"
         Icon="{StaticResource IconProjects}"
-        ContentTemplate="{DataTemplate pages:ExpensesListPage}"
+        ContentTemplate="{DataTemplate pages:SpentListPage}"
         Route="expenses" />
 
     <ShellContent

@@ -4,7 +4,7 @@ using MyGold4.Models;
 
 namespace MyGold4.PageModels
 {
-    public partial class ExpensesListPageModel(ExpensesRepository repository) : ObservableObject
+    public partial class SpentListPageModel(SpentRepository repository) : ObservableObject
     {
         [ObservableProperty]
         private List<Spent> _list = [];
@@ -13,7 +13,7 @@ namespace MyGold4.PageModels
         private Spent? selectedItem;
 
         [RelayCommand]
-        private async Task AppearingAsync()
+        private async Task Appearing()
         {
             var start = DateOnly.FromDateTime(DateTime.Today);
             var end = DateOnly.FromDateTime(DateTime.Today);
@@ -22,9 +22,15 @@ namespace MyGold4.PageModels
         }
 
         [RelayCommand]
-        Task? OpenItemAsync(Spent item) => item is null ? Task.CompletedTask : Shell.Current.GoToAsync($"spent?id={item.ID}");
+        async Task OpenItem(Spent item)
+        {
+            await Shell.Current.GoToAsync($"spent?id={item.ID}");
+        }
 
         [RelayCommand]
-        async Task AddAsync() => await Shell.Current.GoToAsync($"spent");
+        async Task AddItemAsync()
+        {
+            await Shell.Current.GoToAsync($"spent");
+        }
     }
 }

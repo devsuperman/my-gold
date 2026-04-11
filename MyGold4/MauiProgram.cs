@@ -43,7 +43,7 @@ namespace MyGold4
     		builder.Services.AddLogging(configure => configure.AddDebug());
 #endif
 
-            builder.Services.AddSingleton<ExpensesRepository>();
+            builder.Services.AddSingleton<SpentRepository>();
             builder.Services.AddSingleton<ProjectRepository>();
             builder.Services.AddSingleton<TaskRepository>();
             builder.Services.AddSingleton<CategoryRepository>();
@@ -54,6 +54,7 @@ namespace MyGold4
             builder.Services.AddSingleton<ProjectListPageModel>();
             builder.Services.AddSingleton<ManageMetaPageModel>();
 
+            builder.Services.AddTransientWithShellRoute<SpentDetailPage, SpentDetailPageModel>("spent");
             builder.Services.AddTransientWithShellRoute<ProjectDetailPage, ProjectDetailPageModel>("project");
             builder.Services.AddTransientWithShellRoute<TaskDetailPage, TaskDetailPageModel>("task");
 

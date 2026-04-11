@@ -3,7 +3,7 @@ using SQLite;
 
 namespace MyGold4.Data;
 
-public class ExpensesRepository()
+public class SpentRepository()
 {
     SQLiteAsyncConnection db;
 

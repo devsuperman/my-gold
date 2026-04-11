@@ -79,13 +79,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\ExpensesListPage.xaml.cs">
-	    <DependentUpon>ExpensesListPage.xaml</DependentUpon>
+	  <Compile Update="Pages\SpentListPage.xaml.cs">
+	    <DependentUpon>SpentListPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\SpentDetailPage.xaml.cs">
+	    <DependentUpon>SpentDetailPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\ExpensesListPage.xaml">
+	  <MauiXaml Update="Pages\SpentListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SpentDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
