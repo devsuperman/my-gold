@@ -12,11 +12,11 @@ public class SpentRepository()
         if (db is not null)
             return;
 
-        db = new SQLiteAsyncConnection(Constants.DatabasePath);
+        db = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         var result = await db.CreateTableAsync<Spent>();        
     }
 
-    public async Task<List<Spent>> ListAsync(DateOnly start, DateOnly end, int categoryId)
+    public async Task<List<Spent>> ListAsync(DateTime start, DateTime end, int categoryId)
     {
         await Init();
 

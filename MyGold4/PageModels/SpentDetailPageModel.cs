@@ -20,7 +20,7 @@ namespace MyGold4.PageModels
         int _categoryId;
 
         [ObservableProperty]
-        DateOnly _date;
+        DateTime _date;
 
         [ObservableProperty]
         List<Category> _categories = [];

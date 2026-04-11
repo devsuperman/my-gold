@@ -15,8 +15,8 @@ namespace MyGold4.PageModels
         [RelayCommand]
         private async Task Appearing()
         {
-            var start = DateOnly.FromDateTime(DateTime.Today);
-            var end = DateOnly.FromDateTime(DateTime.Today);
+            var start = DateTime.Today;
+            var end = DateTime.Today;
             var categoryId = 0;
             List = await repository.ListAsync(start, end, categoryId);
         }

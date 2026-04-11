@@ -1,11 +1,10 @@
-namespace MyGold4.Pages
+namespace MyGold4.Pages;
+
+public partial class ProjectListPage : ContentPage
 {
-    public partial class ProjectListPage : ContentPage
+    public ProjectListPage(ProjectListPageModel model)
     {
-        public ProjectListPage(ProjectListPageModel model)
-        {
-            BindingContext = model;
-            InitializeComponent();
-        }
+        BindingContext = model;
+        InitializeComponent();
     }
 }

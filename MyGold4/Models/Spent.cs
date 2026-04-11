@@ -11,7 +11,7 @@ public class Spent
 
 
     [Indexed]
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
 
 
     [Indexed]

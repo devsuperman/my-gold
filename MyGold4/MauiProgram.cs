@@ -52,6 +52,7 @@ namespace MyGold4
             builder.Services.AddSingleton<ModalErrorHandler>();
             builder.Services.AddSingleton<MainPageModel>();
             builder.Services.AddSingleton<ProjectListPageModel>();
+            builder.Services.AddSingleton<SpentListPageModel>();
             builder.Services.AddSingleton<ManageMetaPageModel>();
 
             builder.Services.AddTransientWithShellRoute<SpentDetailPage, SpentDetailPageModel>("spent");

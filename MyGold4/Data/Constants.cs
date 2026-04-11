@@ -1,10 +1,11 @@
-namespace MyGold4.Data
+namespace MyGold4.Data;
+public static class Constants
 {
-    public static class Constants
-    {
-        public const string DatabaseFilename = "AppSQLite.db3";
+    public const string DatabaseFilename = "AppSQLite.db3";
+    public static string DatabasePath => $"Data Source={Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename)}";
 
-        public static string DatabasePath =>
-            $"Data Source={Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename)}";
-    }
+    public const SQLite.SQLiteOpenFlags Flags =
+           SQLite.SQLiteOpenFlags.ReadWrite |
+           SQLite.SQLiteOpenFlags.Create |
+           SQLite.SQLiteOpenFlags.SharedCache;
 }
