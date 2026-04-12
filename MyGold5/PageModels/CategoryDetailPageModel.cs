@@ -22,6 +22,19 @@ namespace MyGold5.PageModels
         [ObservableProperty]
         bool _canDelete;
 
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (query.ContainsKey("id"))
+            {
+                int id = Convert.ToInt32(query["id"]);
+                LoadData(id);
+            }
+            else
+            {
+                _item = new();
+            }
+        }
+
         async Task LoadData(int id)
         {
             try
@@ -42,7 +55,6 @@ namespace MyGold5.PageModels
             }
         }
 
-
         [RelayCommand]
         async Task Save()
         {
@@ -60,17 +72,6 @@ namespace MyGold5.PageModels
             await Toast.Make("Deleted", ToastDuration.Long).Show();
         }
 
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            if (query.ContainsKey("id"))
-            {
-                int id = Convert.ToInt32(query["id"]);
-                LoadData(id);
-            }
-            else
-            {
-                _item = new();
-            }
-        }
+      
     }
 }

@@ -13,6 +13,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
+            IsEnabled="{Binding CanDelete}"
             Text="Delete"
             Command="{Binding DeleteCommand}"
             Order="Primary"
@@ -42,6 +43,7 @@
                          ItemsSource="{Binding Categories}"
                          SelectedItem="{Binding Category}"
                          SelectedIndex="{Binding CategoryIndex}"
+                         ItemDisplayBinding="{Binding Name}"
                          SemanticProperties.Description="Category State Expanded"/>     
 
                 </sf:SfTextInputLayout>
