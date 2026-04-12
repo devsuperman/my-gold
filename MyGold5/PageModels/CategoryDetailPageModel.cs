@@ -8,7 +8,7 @@ namespace MyGold5.PageModels
 {
     public partial class CategoryDetailPageModel(CategoryRepository repository) : ObservableObject, IQueryAttributable
     {
-        private Category? _item;
+        Category? _item;
 
         [ObservableProperty]
         string _name = string.Empty;
@@ -37,7 +37,7 @@ namespace MyGold5.PageModels
             }
             finally
             {
-                CanDelete = _item.ID > 0;
+                CanDelete = _item.ID > 0;                
                 IsBusy = false;
             }
         }
