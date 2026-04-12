@@ -3,12 +3,25 @@
     x:Class="MyGold5.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MyGold5"
+    xmlns:pages="clr-namespace:MyGold5.Pages"
     Title="MyGold5">
 
-    <ShellContent
+    <Tab
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="home">
+        <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
+    </Tab>
+
+    <Tab
+        Title="Expenses"
+        Route="expenses">
+        <ShellContent ContentTemplate="{DataTemplate pages:SpentListPage}" />
+    </Tab>
+
+    <Tab
+        Title="Categories"
+        Route="categories">
+        <ShellContent ContentTemplate="{DataTemplate pages:CategoryListPage}" />
+    </Tab>
 
 </Shell>

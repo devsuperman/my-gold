@@ -5,16 +5,16 @@
              xmlns:models="clr-namespace:MyGold5.Models"
              xmlns:controls="clr-namespace:MyGold5.Pages.Controls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="MyGold5.Pages.SpentListPage"
-             x:Name="SpentList"
-             x:DataType="pageModels:SpentListPageModel"
-             Title="Expenses">
+             x:Class="MyGold5.Pages.HomePage"
+             x:Name="Home"
+             x:DataType="pageModels:HomePageModel"
+             Title="Home">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
                 x:Name="AppearingBehavior"
                 EventName="Appearing"                
-                BindingContext="{Binding Path=BindingContext, Source={x:Reference SpentList}, x:DataType=ContentPage}"
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference Home}, x:DataType=ContentPage}"
                 Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
     
@@ -42,10 +42,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-        <Label 
-            Style="{StaticResource Headline}"
-            Text="teste"/>
 
         <controls:AddButton
             Command="{Binding AddItemCommand}"

@@ -1,8 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyGold5.Models;
+using MyGold5.Data;
 
-namespace MyGold4.PageModels
+namespace MyGold5.PageModels
 {
     public partial class SpentListPageModel(SpentRepository repository) : ObservableObject
     {

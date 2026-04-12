@@ -6,7 +6,7 @@ public class Spent
 {
     [PrimaryKey, AutoIncrement]
     public int ID { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
     public decimal Value { get; set; }
 
 

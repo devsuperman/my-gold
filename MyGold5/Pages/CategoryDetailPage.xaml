@@ -7,9 +7,9 @@
              xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
              xmlns:controls="clr-namespace:MyGold5.Pages.Controls"
              xmlns:fonts="clr-namespace:Fonts"
-             x:Class="MyGold5.Pages.SpentDetailPage"
-             x:DataType="pageModels:SpentDetailPageModel"
-             Title="Spent">
+             x:Class="MyGold5.Pages.CategoryDetailPage"
+             x:DataType="pageModels:CategoryDetailPageModel"
+             Title="Category">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -18,33 +18,12 @@
             Order="Primary"
             Priority="0"
             IconImageSource="{StaticResource IconDelete}"
-            SemanticProperties.Description="Delete Spent" />
+            SemanticProperties.Description="Delete Category" />
     </ContentPage.ToolbarItems>
 
     <Grid>
         <ScrollView>
             <VerticalStackLayout Padding="{StaticResource LayoutPadding}" Spacing="{StaticResource LayoutSpacing}">
-
-                <sf:SfTextInputLayout Hint="Date" >
-
-                    <DatePicker
-                        Date="{Binding Date}"
-                        SemanticProperties.Description="Date"/>
-
-                </sf:SfTextInputLayout>
-
-                <sf:SfTextInputLayout
-                     Hint="Category"
-                     SemanticProperties.Description="ComboBox to Select Category"
-                     SemanticProperties.Hint="State Collapsed">
-
-                    <Picker SemanticProperties.Hint="Select the category for the spent"
-                         ItemsSource="{Binding Categories}"
-                         SelectedItem="{Binding Category}"
-                         SelectedIndex="{Binding CategoryIndex}"
-                         SemanticProperties.Description="Category State Expanded"/>     
-
-                </sf:SfTextInputLayout>
 
                 <sf:SfTextInputLayout Hint="Name" >
 
@@ -53,16 +32,6 @@
                         SemanticProperties.Description="Name"
                         ReturnType="Next"
                         Keyboard="Text"/>
-
-                </sf:SfTextInputLayout>
-
-                <sf:SfTextInputLayout Hint="Value">
-                    
-                    <Entry
-                        Text="{Binding Value}" 
-                        Keyboard="Numeric"
-                        SemanticProperties.Description="Value" 
-                        ReturnType="Done"/>
 
                 </sf:SfTextInputLayout>
 

@@ -5,16 +5,16 @@
              xmlns:models="clr-namespace:MyGold5.Models"
              xmlns:controls="clr-namespace:MyGold5.Pages.Controls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="MyGold5.Pages.SpentListPage"
-             x:Name="SpentList"
-             x:DataType="pageModels:SpentListPageModel"
-             Title="Expenses">
+             x:Class="MyGold5.Pages.CategoryListPage"
+             x:Name="CategoryList"
+             x:DataType="pageModels:CategoryListPageModel"
+             Title="Categories">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
                 x:Name="AppearingBehavior"
                 EventName="Appearing"                
-                BindingContext="{Binding Path=BindingContext, Source={x:Reference SpentList}, x:DataType=ContentPage}"
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference CategoryList}, x:DataType=ContentPage}"
                 Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
     
@@ -24,28 +24,23 @@
             x:Name="ListCollectionView"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedItem}"
-            SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
+            SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:CategoryListPageModel}}, x:DataType=pageModels:CategoryListPageModel}"
             SelectionChangedCommandParameter="{Binding SelectedItem}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Spent">
+                <DataTemplate x:DataType="models:Category">
                     <Border 
                         Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
                         SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
                         <VerticalStackLayout Padding="10">
-                            <Label Text="{Binding Name}" FontSize="24" />
-                            <Label Text="{Binding Value}" />
+                            <Label Text="{Binding Name}" FontSize="24" />                            
                         </VerticalStackLayout>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-        <Label 
-            Style="{StaticResource Headline}"
-            Text="teste"/>
 
         <controls:AddButton
             Command="{Binding AddItemCommand}"
