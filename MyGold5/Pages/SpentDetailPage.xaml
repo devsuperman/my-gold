@@ -42,7 +42,6 @@
                     <Picker SemanticProperties.Hint="Select the category for the spent"
                          ItemsSource="{Binding Categories}"
                          SelectedItem="{Binding Category}"
-                         SelectedIndex="{Binding CategoryIndex}"
                          ItemDisplayBinding="{Binding Name}"
                          SemanticProperties.Description="Category State Expanded"/>     
 
