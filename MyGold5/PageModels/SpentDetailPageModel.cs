@@ -8,7 +8,7 @@ namespace MyGold5.PageModels;
 
 public partial class SpentDetailPageModel(SpentRepository repository, CategoryRepository categoryRepository) : ObservableObject, IQueryAttributable
 {
-    private Spent? _item;
+    Spent _item = new();
 
     [ObservableProperty]
     string _name = string.Empty;
@@ -27,9 +27,6 @@ public partial class SpentDetailPageModel(SpentRepository repository, CategoryRe
 
     [ObservableProperty]
     Category? _category;
-
-    [ObservableProperty]
-    private int _categoryIndex = -1;
 
     [ObservableProperty]
     bool _isBusy;
@@ -52,9 +49,7 @@ public partial class SpentDetailPageModel(SpentRepository repository, CategoryRe
             Value = _item.Value;
             Date = _item.Date;
             CategoryId = _item.CategoryId;
-
-            Category = Categories?.FirstOrDefault(c => c.ID == _item.CategoryId);
-            CategoryIndex = Categories?.FindIndex(c => c.ID == _item.CategoryId) ?? -1;
+            Category = Categories.FirstOrDefault(c => c.ID == _item.CategoryId);
         }
         catch (Exception e)
         {
@@ -71,8 +66,8 @@ public partial class SpentDetailPageModel(SpentRepository repository, CategoryRe
     [RelayCommand]
     async Task Save()
     {
-        _item.Name = Name;
-        _item.Value = Value;
+        _item.Name= Name;
+        _item.Value = Value ?? 0;
         _item.Date = Date;
         _item.CategoryId = Category?.ID ?? 0;
 

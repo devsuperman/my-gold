@@ -16,4 +16,12 @@ public class Spent
 
     [Indexed]
     public int CategoryId { get; set; }
+
+    public string Description
+    {
+        get
+        {
+            return $"{Date:dd/MM} - {Name}";
+        }
+    }
 }
