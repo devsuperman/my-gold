@@ -17,34 +17,40 @@
                 BindingContext="{Binding Path=BindingContext, Source={x:Reference Home}, x:DataType=ContentPage}"
                 Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
-    
+
     <Grid>
-        <CollectionView ItemsSource="{Binding List}"
-            Margin="{StaticResource LayoutPadding}"
-            x:Name="ListCollectionView"
-            SelectionMode="Single"
-            SelectedItem="{Binding SelectedItem}"
-            SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
-            SelectionChangedCommandParameter="{Binding SelectedItem}">
+        
+        <CollectionView ItemsSource="{Binding Totals}"
+            Margin="{StaticResource LayoutPadding}">
+            
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
             </CollectionView.ItemsLayout>
+            
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Spent">
+                <DataTemplate x:DataType="models:TotalByCategory">
                     <Border 
                         Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
                         SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
-                        <VerticalStackLayout Padding="10">
-                            <Label Text="{Binding Name}" FontSize="24" />
-                            <Label Text="{Binding Value}" />
-                        </VerticalStackLayout>
+                        
+                        <Grid ColumnDefinitions="*,Auto">
+                            
+                            <Label 
+                                Grid.Column="0"
+                                Text="{Binding Category}"/>
+                            
+                            <Label 
+                                Grid.Column="1"
+                                Text="{Binding Total, StringFormat='{0:C}'}" />
+                        </Grid>
+                        
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <controls:AddButton
-            Command="{Binding AddItemCommand}"
+            Command="{Binding AddCommand}"
             SemanticProperties.Description="Add" 
             ToolTipProperties.Text="Add" />
     </Grid>
