@@ -16,9 +16,12 @@ public class SpentRepository
         var result = await database.CreateTableAsync<Spent>();        
     }
 
-    public async Task<List<Spent>> ListAsync(DateTime start, DateTime end, int categoryId)
+    public async Task<List<Spent>> ListAsync(DateTime monthYear, int categoryId)
     {
         await Init();
+
+        var start = new DateTime(monthYear.Year, monthYear.Month, 1);
+        var end = start.AddMonths(1).AddTicks(-1);
 
         var list = await database.Table<Spent>()
             .Where(w=> 
