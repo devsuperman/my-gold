@@ -5,51 +5,76 @@
              xmlns:models="clr-namespace:MyGold5.Models"
              xmlns:controls="clr-namespace:MyGold5.Pages.Controls"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
              x:Class="MyGold5.Pages.HomePage"
-             x:Name="Home"
              x:DataType="pageModels:HomePageModel"
+             x:Name="Page"
              Title="Home">
 
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior
-                x:Name="AppearingBehavior"
+        <toolkit:EventToCommandBehavior                
                 EventName="Appearing"                
-                BindingContext="{Binding Path=BindingContext, Source={x:Reference Home}, x:DataType=ContentPage}"
-                Command="{Binding AppearingCommand}" />
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference Page}, x:DataType=ContentPage}"
+                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadDataCommand, x:DataType=ContentPage}" />
     </ContentPage.Behaviors>
 
-    <Grid>
-        
-        <CollectionView ItemsSource="{Binding Totals}"
-            Margin="{StaticResource LayoutPadding}">
-            
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto, Auto, *">
+
+        <sf:SfTextInputLayout 
+            Grid.Row="0"
+            Hint="Month" >
+
+            <DatePicker
+                Format="MMMM/yyyy"
+                Date="{Binding Month}"
+                SemanticProperties.Description="Month"
+                x:Name="MonthPicker">
+                
+                <DatePicker.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        EventName="DateSelected"
+                        BindingContext="{Binding Path=BindingContext, Source={x:Reference MonthPicker}, x:DataType=DatePicker}"
+                        Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadDataCommand, x:DataType=ContentPage}" />
+                </DatePicker.Behaviors>
+                
+            </DatePicker>
+
+        </sf:SfTextInputLayout>
+
+        <CollectionView 
+            Grid.Row="1"
+            ItemsSource="{Binding Totals}">
+
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
             </CollectionView.ItemsLayout>
-            
+
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:TotalByCategory">
                     <Border 
                         Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
                         SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
-                        
+
                         <Grid ColumnDefinitions="*,Auto">
-                            
+
                             <Label 
                                 Grid.Column="0"
                                 Text="{Binding Category}"/>
-                            
+
                             <Label 
                                 Grid.Column="1"
                                 Text="{Binding Total, StringFormat='{0:C}'}" />
                         </Grid>
-                        
+
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <controls:AddButton
+            Grid.Row="2"
             Command="{Binding AddCommand}"
             SemanticProperties.Description="Add" 
             ToolTipProperties.Text="Add" />

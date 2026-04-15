@@ -1,10 +1,12 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
 using MyGold5.Models;
+using System.Diagnostics;
 
 namespace MyGold5.PageModels;
 
-public partial class HomePageModel(SpentRepository repository, CategoryRepository categoryRepository) : ObservableObject
+public partial class HomePageModel(SpentRepository repository, CategoryRepository categoryRepository, ILogger<HomePageModel> logger) : ObservableObject
 {
     [ObservableProperty]
     List<Category> _categories = [];
@@ -12,11 +14,17 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     [ObservableProperty]
     List<TotalByCategory> _totals = [];
 
+    [ObservableProperty]
+    DateTime _month = DateTime.Today;
+
+
     [RelayCommand]
-    private async Task Appearing()
+    private async Task LoadData()
     {
+        logger.LogInformation($"Selected Month: {Month:MMMM}");
+
         Categories = await categoryRepository.ListAsync();
-        var expenses = await repository.ListAsync(DateTime.Today, DateTime.Today, 0);
+        var expenses = await repository.ListAsync(Month, 0);
 
         var listTotals = expenses
             .GroupBy(g => g.CategoryId)
