@@ -20,91 +20,98 @@
 
     <Grid
         Padding="20"
-        RowDefinitions="Auto,Auto,Auto,*">
+        RowDefinitions="Auto,*">
 
-        <sf:SfTextInputLayout 
-            Grid.Row="0"
-            Hint="Month" >
+        <ScrollView Grid.Row="0">
+            <Grid
+                RowDefinitions="Auto,Auto,*">
 
-            <DatePicker
-                Format="MMMM/yyyy"
-                Date="{Binding Month}"
-                SemanticProperties.Description="Month"
-                x:Name="MonthPicker">   
+                <sf:SfTextInputLayout 
+    Grid.Row="0"
+    Hint="Month" >
 
-                <DatePicker.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        EventName="DateSelected"
-                        BindingContext="{Binding Path=BindingContext, Source={x:Reference MonthPicker}, x:DataType=DatePicker}"
-                        Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />   
-                </DatePicker.Behaviors>
+                    <DatePicker
+        Format="MMMM/yyyy"
+        Date="{Binding Month}"
+        SemanticProperties.Description="Month"
+        x:Name="MonthPicker">
 
-            </DatePicker>
-        </sf:SfTextInputLayout>
+                        <DatePicker.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                EventName="DateSelected"
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference MonthPicker}, x:DataType=DatePicker}"
+                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />
+                        </DatePicker.Behaviors>
 
-        <sf:SfTextInputLayout
-            Grid.Row="1"
-             Hint="Category"
-             SemanticProperties.Description="ComboBox to Select Category"
-             SemanticProperties.Hint="State Collapsed">
+                    </DatePicker>
+                </sf:SfTextInputLayout>
 
-            <Picker 
-                SemanticProperties.Hint="Select the category for the expenses"
-                ItemsSource="{Binding Categories}"
-                SelectedItem="{Binding SelectedCategory}"
-                ItemDisplayBinding="{Binding Name}"
-                SemanticProperties.Description="Category State Expanded"
-                x:Name="CategoryPicker">
-                
-                <Picker.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        EventName="SelectedIndexChanged"
-                        BindingContext="{Binding Path=BindingContext, Source={x:Reference CategoryPicker}, x:DataType=Picker}"
-                        Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />   
-                </Picker.Behaviors>
-                
-            </Picker> 
+                <sf:SfTextInputLayout
+    Grid.Row="1"
+     Hint="Category"
+     SemanticProperties.Description="ComboBox to Select Category"
+     SemanticProperties.Hint="State Collapsed">
 
-        </sf:SfTextInputLayout>
-        
-        <CollectionView 
-            Grid.Row="2"
-            ItemsSource="{Binding List}"
-            x:Name="ListCollectionView"
-            SelectionMode="Single"
-            SelectedItem="{Binding SelectedItem}"
-            SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
-            SelectionChangedCommandParameter="{Binding SelectedItem}">
-            
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
-            </CollectionView.ItemsLayout>
-            
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Spent">
-                    <Border 
-                        Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
-                        SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
-                        
-                        <Grid ColumnDefinitions="*,Auto">
-                            
-                            <Label 
-                                Grid.Column="0"
-                                Text="{Binding Description}"/>
-                            
-                            <Label 
-                                Grid.Column="1"
-                                Text="{Binding Value,StringFormat='{0:C}'}"/>
-                        </Grid>
-                        
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            
-        </CollectionView>
+                    <Picker 
+        SemanticProperties.Hint="Select the category for the expenses"
+        ItemsSource="{Binding Categories}"
+        SelectedItem="{Binding SelectedCategory}"
+        ItemDisplayBinding="{Binding Name}"
+        SemanticProperties.Description="Category State Expanded"
+        x:Name="CategoryPicker">
+
+                        <Picker.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                EventName="SelectedIndexChanged"
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference CategoryPicker}, x:DataType=Picker}"
+                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />
+                        </Picker.Behaviors>
+
+                    </Picker>
+
+                </sf:SfTextInputLayout>
+
+                <CollectionView 
+    Grid.Row="2"
+    ItemsSource="{Binding List}"
+    x:Name="ListCollectionView"
+    SelectionMode="Single"
+    SelectedItem="{Binding SelectedItem}"
+    SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
+    SelectionChangedCommandParameter="{Binding SelectedItem}">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Spent">
+                            <Border 
+                Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
+                SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <Label 
+                        Grid.Column="0"
+                        Text="{Binding Description}"/>
+
+                                    <Label 
+                        Grid.Column="1"
+                        Text="{Binding Value,StringFormat='{0:C}'}"/>
+                                </Grid>
+
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </Grid>
+        </ScrollView>
 
         <controls:AddButton
-            Grid.Row="3"
+            Grid.Row="1"
             Command="{Binding AddItemCommand}"
             SemanticProperties.Description="Add" 
             ToolTipProperties.Text="Add" />
