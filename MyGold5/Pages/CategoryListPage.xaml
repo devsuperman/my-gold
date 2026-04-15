@@ -18,9 +18,9 @@
                 Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
 
-    <Grid>
+    <Grid
+        Padding="20">
         <CollectionView ItemsSource="{Binding List}"
-            Margin="{StaticResource LayoutPadding}"
             x:Name="ListCollectionView"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedItem}"

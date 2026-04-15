@@ -22,9 +22,10 @@
             SemanticProperties.Description="Delete Spent" />
     </ContentPage.ToolbarItems>
 
-    <Grid>
+    <Grid
+        Padding="20">
         <ScrollView>
-            <VerticalStackLayout Padding="{StaticResource LayoutPadding}" Spacing="{StaticResource LayoutSpacing}">
+            <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}">
 
                 <sf:SfTextInputLayout Hint="Date" >
 

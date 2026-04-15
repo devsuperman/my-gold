@@ -19,6 +19,7 @@
     </ContentPage.Behaviors>
 
     <Grid
+        Padding="20"
         RowDefinitions="Auto,Auto,Auto,*">
 
         <sf:SfTextInputLayout 
@@ -69,7 +70,6 @@
         <CollectionView 
             Grid.Row="2"
             ItemsSource="{Binding List}"
-            Margin="{StaticResource LayoutPadding}"
             x:Name="ListCollectionView"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedItem}"
