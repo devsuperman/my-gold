@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App3", "App3\App3.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGold5", "MyGold5\MyGold5.csproj", "{9DDB1826-2F45-4DB2-96CA-5EC3DEF08FCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp1", "MauiApp1\MauiApp1.csproj", "{045A748B-D981-4759-8C25-234045915885}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,11 +29,6 @@ Global
 		{9DDB1826-2F45-4DB2-96CA-5EC3DEF08FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DDB1826-2F45-4DB2-96CA-5EC3DEF08FCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DDB1826-2F45-4DB2-96CA-5EC3DEF08FCB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{045A748B-D981-4759-8C25-234045915885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{045A748B-D981-4759-8C25-234045915885}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{045A748B-D981-4759-8C25-234045915885}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{045A748B-D981-4759-8C25-234045915885}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{045A748B-D981-4759-8C25-234045915885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
