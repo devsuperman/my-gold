@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="API/API.csproj" />
+  <Project Path="App3/App3.csproj" />
+  <Project Path="MyGold5/MyGold5.csproj">
+    <Deploy />
+  </Project>
+</Solution>
