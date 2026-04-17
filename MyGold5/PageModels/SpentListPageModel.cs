@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Globalization;
 using MyGold5.Models;
 
 namespace MyGold5.PageModels;
@@ -13,13 +14,16 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
     Category _selectedCategory;
 
     [ObservableProperty]
-    List<Spent> _list = [];
+    List<SpentGroup> _listGroup = [];
 
     [ObservableProperty]
     Spent? selectedItem;
 
     [ObservableProperty]
     DateTime _month = DateTime.Today;
+
+    [ObservableProperty]
+    string _title;
 
     [RelayCommand]
     async Task Appearing()
@@ -31,8 +35,27 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
     }
 
     [RelayCommand]
+    async Task NextMonth()
+    {
+        Month = Month.AddMonths(1);
+        await LoadExpenses();
+    }
+
+    [RelayCommand]
+    async Task PreviousMonth()
+    {
+        Month = Month.AddMonths(-1);
+        await LoadExpenses();
+    }
+
+    [RelayCommand]
     async Task LoadExpenses()
     {
+        Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
+
+        if (DateTime.Today.Year != Month.Year)
+            Title = $"{Title} de {Month.Year}";
+
         var expenses = await repository.ListAsync(Month, SelectedCategory?.ID ?? 0);
 
         foreach (var item in expenses)
@@ -41,7 +64,10 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
             item.Name = $"{c?.Name} {item.Name}";
         }
 
-        List = expenses;
+        ListGroup = expenses
+            .GroupBy(g => g.Date)
+            .Select(s => new SpentGroup(s.Key.ToString("dd - dddd"), s.ToList()))
+            .ToList();
     }
 
     [RelayCommand]

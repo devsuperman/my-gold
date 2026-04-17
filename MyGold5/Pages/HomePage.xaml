@@ -15,33 +15,34 @@
         <toolkit:EventToCommandBehavior                
                 EventName="Appearing"                
                 BindingContext="{Binding Path=BindingContext, Source={x:Reference Page}, x:DataType=ContentPage}"
-                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadDataCommand, x:DataType=ContentPage}" />
+                Command="{Binding Source={x:Reference Page}, Path=BindingContext.AppearingCommand, x:DataType=ContentPage}" />
     </ContentPage.Behaviors>
 
     <Grid
         Padding="20"
         RowDefinitions="Auto, Auto, *">
 
-        <sf:SfTextInputLayout 
-            Grid.Row="0"
-            Hint="Month" >
+        <Grid
+    ColumnDefinitions="Auto,*,Auto">
 
-            <DatePicker
-                Format="MMMM/yyyy"
-                Date="{Binding Month}"
-                SemanticProperties.Description="Month"
-                x:Name="MonthPicker">
-                
-                <DatePicker.Behaviors>
-                    <toolkit:EventToCommandBehavior
-                        EventName="DateSelected"
-                        BindingContext="{Binding Path=BindingContext, Source={x:Reference MonthPicker}, x:DataType=DatePicker}"
-                        Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadDataCommand, x:DataType=ContentPage}" />
-                </DatePicker.Behaviors>
-                
-            </DatePicker>
+            <Button
+        Grid.Column="0"
+        ImageSource="{StaticResource IconPrevious}"
+        Command="{Binding PreviousMonthCommand}">
+            </Button>
 
-        </sf:SfTextInputLayout>
+            <Label 
+        Grid.Column="1"
+        HorizontalTextAlignment="Center"
+        Style="{StaticResource Title1}"
+        Text="{Binding Title}"/>
+
+            <Button
+        Grid.Column="2"
+        ImageSource="{StaticResource IconNext}"
+        Command="{Binding NextMonthCommand}"/>
+
+        </Grid>
 
         <CollectionView 
             Grid.Row="1"

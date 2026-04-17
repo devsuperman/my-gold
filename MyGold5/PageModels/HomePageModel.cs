@@ -2,11 +2,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MyGold5.Models;
-using System.Diagnostics;
+using System.Globalization;
 
 namespace MyGold5.PageModels;
 
-public partial class HomePageModel(SpentRepository repository, CategoryRepository categoryRepository, ILogger<HomePageModel> logger) : ObservableObject
+public partial class HomePageModel(SpentRepository repository, CategoryRepository categoryRepository) : ObservableObject
 {
     [ObservableProperty]
     List<Category> _categories = [];
@@ -17,13 +17,24 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     [ObservableProperty]
     DateTime _month = DateTime.Today;
 
+    [ObservableProperty]
+    string _title;
 
     [RelayCommand]
-    private async Task LoadData()
+    async Task Appearing()
     {
-        logger.LogInformation($"Selected Month: {Month:MMMM}");
-
         Categories = await categoryRepository.ListAsync();
+        await LoadExpenses();
+    }
+
+    [RelayCommand]
+    async Task LoadExpenses()
+    {
+        Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
+
+        if (DateTime.Today.Year != Month.Year)
+            Title = $"{Title} de {Month.Year}";
+
         var expenses = await repository.ListAsync(Month, 0);
 
         var listTotals = expenses
@@ -42,6 +53,20 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
         }
 
         Totals = new(listTotals);
+    }
+
+    [RelayCommand]
+    async Task NextMonth()
+    {
+        Month = Month.AddMonths(1);
+        await LoadExpenses();
+    }
+
+    [RelayCommand]
+    async Task PreviousMonth()
+    {
+        Month = Month.AddMonths(-1);
+        await LoadExpenses();
     }
 
     [RelayCommand]

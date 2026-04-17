@@ -18,102 +18,114 @@
                 Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
 
-    <Grid
-        Padding="20"
-        RowDefinitions="Auto,*">
+    <Grid Padding="20">
 
-        <ScrollView Grid.Row="0">
-            <Grid
-                RowDefinitions="Auto,Auto,*">
+        <Grid RowDefinitions="Auto,Auto,*">
 
-                <sf:SfTextInputLayout 
-    Grid.Row="0"
-    Hint="Month" >
+            <Grid ColumnDefinitions="Auto,*,Auto">
 
-                    <DatePicker
-        Format="MMMM/yyyy"
-        Date="{Binding Month}"
-        SemanticProperties.Description="Month"
-        x:Name="MonthPicker">
-
-                        <DatePicker.Behaviors>
-                            <toolkit:EventToCommandBehavior
-                EventName="DateSelected"
-                BindingContext="{Binding Path=BindingContext, Source={x:Reference MonthPicker}, x:DataType=DatePicker}"
-                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />
-                        </DatePicker.Behaviors>
-
-                    </DatePicker>
-                </sf:SfTextInputLayout>
-
-                <sf:SfTextInputLayout
-    Grid.Row="1"
-     Hint="Category"
-     SemanticProperties.Description="ComboBox to Select Category"
-     SemanticProperties.Hint="State Collapsed">
-
-                    <Picker 
-        SemanticProperties.Hint="Select the category for the expenses"
-        ItemsSource="{Binding Categories}"
-        SelectedItem="{Binding SelectedCategory}"
-        ItemDisplayBinding="{Binding Name}"
-        SemanticProperties.Description="Category State Expanded"
-        x:Name="CategoryPicker">
-
-                        <Picker.Behaviors>
-                            <toolkit:EventToCommandBehavior
-                EventName="SelectedIndexChanged"
-                BindingContext="{Binding Path=BindingContext, Source={x:Reference CategoryPicker}, x:DataType=Picker}"
-                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />
-                        </Picker.Behaviors>
-
-                    </Picker>
-
-                </sf:SfTextInputLayout>
-
-                <CollectionView 
-    Grid.Row="2"
-    ItemsSource="{Binding List}"
-    x:Name="ListCollectionView"
-    SelectionMode="Single"
-    SelectedItem="{Binding SelectedItem}"
-    SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
-    SelectionChangedCommandParameter="{Binding SelectedItem}">
-
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Spent">
-                            <Border 
-                Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
-                SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
-
-                                <Grid ColumnDefinitions="*,Auto">
-
-                                    <Label 
+                <Button
                         Grid.Column="0"
-                        Text="{Binding Description}"/>
+                        ImageSource="{StaticResource IconPrevious}"
+                        Command="{Binding PreviousMonthCommand}">
+                </Button>
 
-                                    <Label 
+                <Label 
                         Grid.Column="1"
-                        Text="{Binding Value,StringFormat='{0:C}'}"/>
-                                </Grid>
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource Title1}"
+                        Text="{Binding Title}"/>
 
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-
-                </CollectionView>
+                <Button
+                        Grid.Column="2"
+                        ImageSource="{StaticResource IconNext}"
+                        Command="{Binding NextMonthCommand}"/>
 
             </Grid>
-        </ScrollView>
+
+            <sf:SfTextInputLayout
+                    Grid.Row="1"
+                     Hint="Category"
+                     SemanticProperties.Description="ComboBox to Select Category"
+                     SemanticProperties.Hint="State Collapsed">
+
+                <Picker 
+                        SemanticProperties.Hint="Select the category for the expenses"
+                        ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SemanticProperties.Description="Category State Expanded"
+                        x:Name="CategoryPicker">
+
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                                EventName="SelectedIndexChanged"
+                                BindingContext="{Binding Path=BindingContext, Source={x:Reference CategoryPicker}, x:DataType=Picker}"
+                                Command="{Binding Source={x:Reference Page}, Path=BindingContext.LoadExpensesCommand, x:DataType=ContentPage}" />
+                    </Picker.Behaviors>
+
+                </Picker>
+
+            </sf:SfTextInputLayout>
+
+            <CollectionView 
+                Grid.Row="2"
+                ItemsSource="{Binding ListGroup}"
+                IsGrouped="True"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedItem}"
+                SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
+                SelectionChangedCommandParameter="{Binding SelectedItem}">
+
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="models:SpentGroup">
+
+                        <StackLayout>
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Grid.Row="0"
+                                Style="{StaticResource Body2}"
+                                Margin="20"
+                                Text="{Binding Name}"/>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Spent">
+
+                        <Border 
+                            Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
+                            SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
+
+                            <Grid ColumnDefinitions="*,Auto">
+
+                                <Label 
+                                    Grid.Column="0"
+                                    Text="{Binding Name}"/>
+
+                                <Label 
+                                    Grid.Column="1"
+                                    Text="{Binding Value,StringFormat='{0:C}'}"/>
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
 
         <controls:AddButton
-            Grid.Row="1"
             Command="{Binding AddItemCommand}"
             SemanticProperties.Description="Add" 
             ToolTipProperties.Text="Add" />
+        
     </Grid>
 </ContentPage>

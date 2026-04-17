@@ -50,26 +50,20 @@
         <OnIdiom.Desktop>15</OnIdiom.Desktop>
     </OnIdiom>
 
-    <FontImageSource x:Key="IconDashboard"
-                     Glyph="{x:Static f:FluentUI.diagram_24_regular}"
+    <FontImageSource x:Key="IconHome"
+                 Glyph="{x:Static f:FluentUI.home_24_regular}"
+                 FontFamily="{x:Static f:FluentUI.FontFamily}"
+                 Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
+                 Size="{StaticResource IconSize}" />
+
+    <FontImageSource x:Key="IconExpenses"
+                     Glyph="{x:Static f:FluentUI.list_bar_20_regular}"
                      FontFamily="{x:Static f:FluentUI.FontFamily}"
                      Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
                      Size="{StaticResource IconSize}" />
 
-    <FontImageSource x:Key="IconProjects"
-                     Glyph="{x:Static f:FluentUI.list_24_regular}"
-                     FontFamily="{x:Static f:FluentUI.FontFamily}"
-                     Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
-                     Size="{StaticResource IconSize}" />
-
-    <FontImageSource x:Key="IconMeta"
-                     Glyph="{x:Static f:FluentUI.info_24_regular}"
-                     FontFamily="{x:Static f:FluentUI.FontFamily}"
-                     Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
-                     Size="{StaticResource IconSize}" />
-
-    <FontImageSource x:Key="IconRibbon"
-                     Glyph="{x:Static f:FluentUI.ribbon_20_regular}"
+    <FontImageSource x:Key="IconCategories"
+                     Glyph="{x:Static f:FluentUI.task_list_ltr_24_regular}"
                      FontFamily="{x:Static f:FluentUI.FontFamily}"
                      Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
                      Size="{StaticResource IconSize}" />
@@ -92,16 +86,17 @@
                 Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
                 Size="{StaticResource size240}" />
 
-    <FontImageSource x:Key="IconLight"
-                Glyph="{x:Static f:FluentUI.weather_sunny_28_regular}"
-                FontFamily="{x:Static f:FluentUI.FontFamily}"
-                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
-                Size="{StaticResource size240}" />
-    <FontImageSource x:Key="IconDark"
-                Glyph="{x:Static f:FluentUI.weather_moon_28_regular}"
-                FontFamily="{x:Static f:FluentUI.FontFamily}"
-                Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
-                Size="{StaticResource size240}" />
+    <FontImageSource x:Key="IconNext"
+            Glyph="{x:Static f:FluentUI.arrow_next_24_regular}"
+            FontFamily="{x:Static f:FluentUI.FontFamily}"
+            Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource LightOnDarkBackground}}"
+            Size="{StaticResource size240}" />
+
+    <FontImageSource x:Key="IconPrevious"
+        Glyph="{x:Static f:FluentUI.arrow_previous_24_regular}"
+        FontFamily="{x:Static f:FluentUI.FontFamily}"
+        Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource LightOnDarkBackground}}"
+        Size="{StaticResource size240}" />
 
     <Style TargetType="Label">
         <Setter Property="TextColor"
@@ -155,14 +150,13 @@
         <Setter Property="FontAttributes"
                 Value="{OnPlatform Default=None, Android=Bold}" />
     </Style>
-    <Style x:Key="Body2"
-           TargetType="Label">
-        <Setter Property="FontSize"
-                Value="15" />
-        <Setter Property="LineHeight"
-                Value="1.33" />
-        <!-- 20 -->
+    
+    <Style x:Key="Body2" TargetType="Label">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="LineHeight" Value="1.33" />
+        <Setter Property="TextColor" Value="{StaticResource Gray500}" />
     </Style>
+    
     <Style x:Key="Body2Strong"
            TargetType="Label">
         <Setter Property="FontSize"
