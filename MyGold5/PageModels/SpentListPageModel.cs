@@ -25,11 +25,19 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
     [ObservableProperty]
     string _title;
 
+    [ObservableProperty]
+    decimal _total;
+
     [RelayCommand]
     async Task Appearing()
     {
-        var categories = await categoryRepository.ListAsync();
-        Categories = [.. categories, new() { ID = 0, Name = "😎 All" }];
+        Category categoryAll = new() { ID = 0, Name = "😎 All" };
+
+        var categories = new List<Category> { categoryAll };
+        categories.AddRange(await categoryRepository.ListAsync());
+
+        Categories = [.. categories];
+        SelectedCategory = categoryAll;
 
         await LoadExpenses();
     }
@@ -68,6 +76,8 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
             .GroupBy(g => g.Date)
             .Select(s => new SpentGroup(s.Key.ToString("dd - dddd"), s.ToList()))
             .ToList();
+
+        Total = expenses.Sum(s => s.Value);
     }
 
     [RelayCommand]

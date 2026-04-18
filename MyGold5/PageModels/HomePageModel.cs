@@ -20,6 +20,9 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     [ObservableProperty]
     string _title;
 
+    [ObservableProperty]
+    decimal _total;
+
     [RelayCommand]
     async Task Appearing()
     {
@@ -52,7 +55,8 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
             total.Category = category?.Name;
         }
 
-        Totals = new(listTotals);
+        Totals = [.. listTotals.OrderBy(o => o.Category).ToList()];
+        Total = expenses.Sum(s => s.Value);
     }
 
     [RelayCommand]

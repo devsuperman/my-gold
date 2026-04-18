@@ -23,7 +23,8 @@
         RowDefinitions="Auto, Auto, *">
 
         <Grid
-    ColumnDefinitions="Auto,*,Auto">
+            ColumnDefinitions="Auto,*,Auto"
+            Margin="0,10,0,10">
 
             <Button
         Grid.Column="0"
@@ -72,6 +73,15 @@
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+            <CollectionView.Footer>
+                <StackLayout Padding="10" HorizontalOptions="End">
+                    <Label 
+                        Text="{Binding Total, StringFormat='{0:C}'}" 
+                        Style="{StaticResource Title2}"/>   
+                </StackLayout>
+            </CollectionView.Footer>
+            
         </CollectionView>
 
         <controls:AddButton
