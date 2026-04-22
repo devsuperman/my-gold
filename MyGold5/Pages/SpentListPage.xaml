@@ -9,7 +9,7 @@
              x:Class="MyGold5.Pages.SpentListPage"
              x:Name="Page"
              x:DataType="pageModels:SpentListPageModel"
-             Title="Expenses">
+             Title="Gastos">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior

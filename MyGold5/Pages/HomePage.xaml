@@ -9,7 +9,7 @@
              x:Class="MyGold5.Pages.HomePage"
              x:DataType="pageModels:HomePageModel"
              x:Name="Page"
-             Title="Home">
+             Title="Início  ">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior                

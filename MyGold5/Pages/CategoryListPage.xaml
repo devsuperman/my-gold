@@ -8,7 +8,7 @@
              x:Class="MyGold5.Pages.CategoryListPage"
              x:Name="CategoryList"
              x:DataType="pageModels:CategoryListPageModel"
-             Title="Categories">
+             Title="Categorias">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior

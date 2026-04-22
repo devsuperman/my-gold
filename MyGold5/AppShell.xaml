@@ -8,21 +8,21 @@
     Title="MyGold5">
 
     <Tab
-        Title="Home"
+        Title="Início"
         Route="home"
         Icon="{StaticResource IconHome}">
         <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
     </Tab>
 
     <Tab
-        Title="Expenses"
+        Title="Gastos"
         Route="expenses"
         Icon="{StaticResource IconExpenses}">
         <ShellContent ContentTemplate="{DataTemplate pages:SpentListPage}" />
     </Tab>
 
     <Tab
-        Title="Categories"
+        Title="Categorias"
         Route="categories"
         Icon="{StaticResource IconCategories}">
         <ShellContent ContentTemplate="{DataTemplate pages:CategoryListPage}" />

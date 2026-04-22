@@ -9,7 +9,7 @@
              xmlns:fonts="clr-namespace:Fonts"
              x:Class="MyGold5.Pages.SpentDetailPage"
              x:DataType="pageModels:SpentDetailPageModel"
-             Title="Spent">
+             Title="Gasto">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -27,7 +27,7 @@
         <ScrollView>
             <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}">
 
-                <sf:SfTextInputLayout Hint="Date" >
+                <sf:SfTextInputLayout Hint="Data" >
 
                     <DatePicker
                         Date="{Binding Date}"
@@ -36,7 +36,7 @@
                 </sf:SfTextInputLayout>
 
                 <sf:SfTextInputLayout
-                     Hint="Category"
+                     Hint="Categoria"
                      SemanticProperties.Description="ComboBox to Select Category"
                      SemanticProperties.Hint="State Collapsed">
 
@@ -48,7 +48,7 @@
 
                 </sf:SfTextInputLayout>
 
-                <sf:SfTextInputLayout Hint="Name" >
+                <sf:SfTextInputLayout Hint="Descrição" >
 
                     <Entry
                         Text="{Binding Name}" 
@@ -58,7 +58,7 @@
 
                 </sf:SfTextInputLayout>
 
-                <sf:SfTextInputLayout Hint="Value">
+                <sf:SfTextInputLayout Hint="Valor">
                     
                     <Entry
                         Text="{Binding Value}" 
@@ -68,7 +68,7 @@
 
                 </sf:SfTextInputLayout>
 
-                <Button Text="Save" 
+                <Button Text="Salvar" 
                     MinimumHeightRequest="{OnIdiom 44, Desktop=60}"
                     Command="{Binding SaveCommand}" />
 

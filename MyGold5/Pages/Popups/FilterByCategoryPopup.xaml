@@ -24,7 +24,7 @@
 
                     <Label
                         HorizontalTextAlignment="Center"
-                        Style="{StaticResource Title1}"
+                        Style="{StaticResource SubHeadline}"
                         Text="{Binding Name}">
 
                         <Label.GestureRecognizers>

@@ -9,7 +9,7 @@
              xmlns:fonts="clr-namespace:Fonts"
              x:Class="MyGold5.Pages.CategoryDetailPage"
              x:DataType="pageModels:CategoryDetailPageModel"
-             Title="Category">
+             Title="Categoria">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -27,17 +27,18 @@
         <ScrollView>
             <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}">
 
-                <sf:SfTextInputLayout Hint="Name" >
+                <sf:SfTextInputLayout Hint="Nome" >
 
                     <Entry
                         Text="{Binding Name}" 
-                        SemanticProperties.Description="Name"
+                        SemanticProperties.Description="Nome"
                         ReturnType="Next"
                         Keyboard="Text"/>
 
                 </sf:SfTextInputLayout>
 
-                <Button Text="Save" 
+                <Button 
+                    Text="Salvar" 
                     MinimumHeightRequest="{OnIdiom 44, Desktop=60}"
                     Command="{Binding SaveCommand}" />
 
