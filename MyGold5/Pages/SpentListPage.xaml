@@ -24,11 +24,12 @@
         <ToolbarItem Order="Primary" IconImageSource="{StaticResource IconToday}" Command="{Binding ThisMonthCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <Grid Padding="20">
+    <Grid>
 
         <Grid RowDefinitions="Auto,*">
 
             <Grid 
+                Padding="20"
                 Grid.Column="0"
                 ColumnDefinitions="*,Auto">
 
@@ -59,10 +60,8 @@
 
                         <StackLayout>
                             <Label
-                                HorizontalTextAlignment="Center"
-                                Grid.Row="0"
-                                Style="{StaticResource Body2}"
                                 Margin="20"
+                                Style="{StaticResource Body3}"
                                 Text="{Binding Name}"/>
                         </StackLayout>
 
@@ -70,39 +69,40 @@
                 </CollectionView.GroupHeaderTemplate>
 
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Spent">
 
-                        <Border 
-                            Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
-                            SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
 
-                            <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout 
+                            Spacing="20"
+                            Padding="20,0,20,0">
+
+                            <Grid 
+                                ColumnDefinitions="*,Auto"
+                                VerticalOptions="Center">
 
                                 <Label 
-                                    Grid.Column="0"
                                     Text="{Binding Name}"/>
 
                                 <Label 
                                     Grid.Column="1"
-                                    Text="{Binding Value,StringFormat='{0:C}'}"/>
+                                    Text="{Binding Value,StringFormat='{0:C}'}"
+                                    Style="{StaticResource Body1Strong}"/>
+
                             </Grid>
 
-                        </Border>
+                            <BoxView
+                                Color="{StaticResource Gray100}"
+                                WidthRequest="400"
+                                HeightRequest="1"/>
+
+                        </VerticalStackLayout>
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-
-                <CollectionView.Footer>
-                    <StackLayout Padding="10" HorizontalOptions="End">
-                        <Label 
-                            Text="{Binding Total, StringFormat='{0:C}'}" 
-                            Style="{StaticResource Title2}"/>
-                    </StackLayout>
-                </CollectionView.Footer>
 
             </CollectionView>
         </Grid>
