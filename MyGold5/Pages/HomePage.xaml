@@ -29,7 +29,8 @@
 
         <Grid 
             Grid.Column="0"
-            ColumnDefinitions="*,Auto">
+            ColumnDefinitions="*,Auto"
+            Margin="0,0,0,40">
 
             <Label 
                 Style="{StaticResource Title1}"
@@ -49,27 +50,36 @@
             ItemsSource="{Binding Totals}">
 
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:TotalByCategory">
-                    <Border 
-                        Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
-                        SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
 
-                        <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout 
+                        Spacing="20"
+                        Padding="20,0,20,0">
 
-                            <Label 
-                                Grid.Column="0"
-                                Text="{Binding Category}"/>
+                        <Grid 
+                            ColumnDefinitions="*,Auto"
+                            VerticalOptions="Center">
+
+                            <Label Text="{Binding Category}"/>
 
                             <Label 
                                 Grid.Column="1"
-                                Text="{Binding Total, StringFormat='{0:C}'}" />
+                                Text="{Binding Total,StringFormat='{0:C}'}"
+                                Style="{StaticResource Body1Strong}"/>
+
                         </Grid>
 
-                    </Border>
+                        <BoxView
+                            Color="{StaticResource Gray100}"
+                            WidthRequest="400"
+                            HeightRequest="1"/>
+
+                    </VerticalStackLayout>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 

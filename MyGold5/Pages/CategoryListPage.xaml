@@ -18,24 +18,37 @@
                 Command="{Binding AppearingCommand}" />
     </ContentPage.Behaviors>
 
-    <Grid
-        Padding="20">
-        <CollectionView ItemsSource="{Binding List}"
+    <Grid>
+        
+        <CollectionView 
+            ItemsSource="{Binding List}"
+            Margin="20"
             x:Name="ListCollectionView"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedItem}"
             SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:CategoryListPageModel}}, x:DataType=pageModels:CategoryListPageModel}"
             SelectionChangedCommandParameter="{Binding SelectedItem}">
+            
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="7.5"/>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
             </CollectionView.ItemsLayout>
+            
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Category">
-                    <Border 
-                        Background="{AppThemeBinding Light={StaticResource LightSecondaryBackground},Dark={StaticResource DarkSecondaryBackground}}"
-                        SemanticProperties.Description="{Binding Name, StringFormat='{0}'}">
+
+                    <VerticalStackLayout 
+                        Spacing="20"
+                        Padding="20,0,20,0">
+
                         <Label Text="{Binding Name}"/>
-                    </Border>
+
+                        <BoxView
+                            Color="{StaticResource Gray100}"
+                            WidthRequest="400"
+                            HeightRequest="1"/> 
+
+                    </VerticalStackLayout>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -69,12 +69,11 @@
                 </CollectionView.GroupHeaderTemplate>
 
                 <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Spent">
-
 
                         <VerticalStackLayout 
                             Spacing="20"
@@ -105,8 +104,8 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
+            
         </Grid>
-
 
         <controls:AddButton
             Command="{Binding AddItemCommand}"
