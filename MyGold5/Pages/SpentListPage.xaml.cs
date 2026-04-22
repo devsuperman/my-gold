@@ -1,5 +1,3 @@
-using MyGold5.PageModels;
-
 namespace MyGold5.Pages;
 public partial class SpentListPage : ContentPage
 {

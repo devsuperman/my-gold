@@ -68,12 +68,24 @@
                      Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
                      Size="{StaticResource IconSize}" />
 
+    <FontImageSource x:Key="IconToday"
+                 Glyph="{x:Static f:FluentUI.calendar_today_24_regular}"
+                 FontFamily="{x:Static f:FluentUI.FontFamily}"
+                 Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
+                 Size="{StaticResource IconSize}" />
+
     <FontImageSource x:Key="IconAdd"
                 Glyph="{x:Static f:FluentUI.add_32_regular}"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
                 Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource LightOnDarkBackground}}"
                 Size="{StaticResource IconSize}" />
 
+    <FontImageSource x:Key="IconFilter"
+            Glyph="{x:Static f:FluentUI.filter_24_regular}"
+            FontFamily="{x:Static f:FluentUI.FontFamily}"
+            Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
+            Size="{StaticResource IconSize}" />
+    
     <FontImageSource x:Key="IconDelete"
                 Glyph="{x:Static f:FluentUI.delete_32_regular}"
                 FontFamily="{x:Static f:FluentUI.FontFamily}"
@@ -96,6 +108,12 @@
         Glyph="{x:Static f:FluentUI.arrow_previous_24_regular}"
         FontFamily="{x:Static f:FluentUI.FontFamily}"
         Color="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource LightOnDarkBackground}}"
+        Size="{StaticResource size240}" />
+
+    <FontImageSource x:Key="IconPreviousMenu"
+        Glyph="{x:Static f:FluentUI.arrow_previous_24_regular}"
+        FontFamily="{x:Static f:FluentUI.FontFamily}"
+        Color="{AppThemeBinding Light={StaticResource DarkOnLightBackground}, Dark={StaticResource LightOnDarkBackground}}"
         Size="{StaticResource size240}" />
 
     <Style TargetType="Label">

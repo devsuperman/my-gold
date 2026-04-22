@@ -1,6 +1,7 @@
 ﻿using Syncfusion.Maui.Toolkit.Hosting;
 using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using MyGold5.Pages.Popups;
 
 namespace MyGold5;
 public static class MauiProgram
@@ -37,6 +38,7 @@ public static class MauiProgram
 
         builder.Services.AddTransientWithShellRoute<SpentListPage, SpentListPageModel>("expenses");
         builder.Services.AddTransientWithShellRoute<SpentDetailPage, SpentDetailPageModel>("spent");
+        builder.Services.AddTransientPopup<FilterByCategoryPopup, FilterByCategoryPopupPageModel>();
 
         builder.Services.AddSingleton<SpentRepository>();
         builder.Services.AddSingleton<CategoryRepository>();

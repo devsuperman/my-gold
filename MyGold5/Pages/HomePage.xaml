@@ -18,30 +18,29 @@
                 Command="{Binding Source={x:Reference Page}, Path=BindingContext.AppearingCommand, x:DataType=ContentPage}" />
     </ContentPage.Behaviors>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" IconImageSource="{StaticResource IconPreviousMenu}" Command="{Binding PreviousMonthCommand}"/>
+        <ToolbarItem Order="Primary" IconImageSource="{StaticResource IconToday}" Command="{Binding ThisMonthCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <Grid
         Padding="20"
         RowDefinitions="Auto, Auto, *">
 
-        <Grid
-            ColumnDefinitions="Auto,*,Auto"
-            Margin="0,10,0,10">
-
-            <Button
-        Grid.Column="0"
-        ImageSource="{StaticResource IconPrevious}"
-        Command="{Binding PreviousMonthCommand}">
-            </Button>
+        <Grid 
+            Grid.Column="0"
+            ColumnDefinitions="*,Auto">
 
             <Label 
-        Grid.Column="1"
-        HorizontalTextAlignment="Center"
-        Style="{StaticResource Title1}"
-        Text="{Binding Title}"/>
+                Style="{StaticResource Title1}"
+                Text="{Binding Title}"/>
 
-            <Button
-        Grid.Column="2"
-        ImageSource="{StaticResource IconNext}"
-        Command="{Binding NextMonthCommand}"/>
+            <Label 
+                HorizontalOptions="End"
+                HorizontalTextAlignment="End"
+                Text="{Binding Total, StringFormat='{0:C}'}" 
+                Style="{StaticResource Title1}"
+                TextColor="MediumSeaGreen"/>
 
         </Grid>
 
@@ -74,20 +73,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
-            <CollectionView.Footer>
-                <StackLayout Padding="10" HorizontalOptions="End">
-                    <Label 
-                        Text="{Binding Total, StringFormat='{0:C}'}" 
-                        Style="{StaticResource Title2}"/>   
-                </StackLayout>
-            </CollectionView.Footer>
-            
         </CollectionView>
 
-        <controls:AddButton
-            Grid.Row="2"
-            Command="{Binding AddCommand}"
-            SemanticProperties.Description="Add" 
-            ToolTipProperties.Text="Add" />
     </Grid>
 </ContentPage>

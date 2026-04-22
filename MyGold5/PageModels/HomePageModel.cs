@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using MyGold5.Models;
 using System.Globalization;
+using MyGold5.Models;
 
 namespace MyGold5.PageModels;
 
@@ -60,9 +60,9 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     }
 
     [RelayCommand]
-    async Task NextMonth()
+    async Task ThisMonth()
     {
-        Month = Month.AddMonths(1);
+        Month = DateTime.Today;
         await LoadExpenses();
     }
 
@@ -71,11 +71,5 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     {
         Month = Month.AddMonths(-1);
         await LoadExpenses();
-    }
-
-    [RelayCommand]
-    public async Task AddAsync()
-    {
-        await Shell.Current.GoToAsync("spent");
     }
 }

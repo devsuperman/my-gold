@@ -1,18 +1,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Maui;
 using System.Globalization;
 using MyGold5.Models;
 
 namespace MyGold5.PageModels;
 
-public partial class SpentListPageModel(SpentRepository repository, CategoryRepository categoryRepository) : ObservableObject
+public partial class SpentListPageModel(SpentRepository repository, CategoryRepository categoryRepository, IPopupService popupService) : ObservableObject
 {
-    [ObservableProperty]
-    List<Category> _categories = [];
-
-    [ObservableProperty]
-    Category _selectedCategory;
-
     [ObservableProperty]
     List<SpentGroup> _listGroup = [];
 
@@ -28,24 +23,18 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
     [ObservableProperty]
     decimal _total;
 
+    int _selectedCategoryId;
+
     [RelayCommand]
     async Task Appearing()
     {
-        Category categoryAll = new() { ID = 0, Name = "😎 All" };
-
-        var categories = new List<Category> { categoryAll };
-        categories.AddRange(await categoryRepository.ListAsync());
-
-        Categories = [.. categories];
-        SelectedCategory = categoryAll;
-
         await LoadExpenses();
     }
 
     [RelayCommand]
-    async Task NextMonth()
+    async Task ThisMonth()
     {
-        Month = Month.AddMonths(1);
+        Month = DateTime.Today;
         await LoadExpenses();
     }
 
@@ -56,7 +45,6 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
         await LoadExpenses();
     }
 
-    [RelayCommand]
     async Task LoadExpenses()
     {
         Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
@@ -64,11 +52,12 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
         if (DateTime.Today.Year != Month.Year)
             Title = $"{Title} de {Month.Year}";
 
-        var expenses = await repository.ListAsync(Month, SelectedCategory?.ID ?? 0);
+        var expenses = await repository.ListAsync(Month, _selectedCategoryId);
+        var categories = await categoryRepository.ListAsync();
 
         foreach (var item in expenses)
         {
-            var c = Categories.FirstOrDefault(f => f.ID == item.CategoryId);
+            var c = categories.FirstOrDefault(f => f.ID == item.CategoryId);
             item.Name = $"{c?.Name} {item.Name}";
         }
 
@@ -90,5 +79,23 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
     async Task AddItemAsync()
     {
         await Shell.Current.GoToAsync($"spent");
+    }
+
+    [RelayCommand]
+    async Task FilterByCategory()
+    {
+        var queryAttributes = new Dictionary<string, object>
+        {
+            ["categoryId"] = _selectedCategoryId
+        };
+
+        var popupResult = await popupService.ShowPopupAsync<FilterByCategoryPopupPageModel, int>(
+            Shell.Current,
+            options: PopupOptions.Empty,
+            shellParameters: queryAttributes);
+
+        _selectedCategoryId = popupResult.Result;
+
+        await LoadExpenses();
     }
 }
