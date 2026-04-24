@@ -1,6 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Extensions.Logging;
 using System.Globalization;
 using MyGold5.Models;
 
@@ -33,7 +32,7 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     [RelayCommand]
     async Task LoadExpenses()
     {
-        Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
+        Title = "Resumo de " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
 
         if (DateTime.Today.Year != Month.Year)
             Title = $"{Title} de {Month.Year}";
@@ -55,7 +54,7 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
             total.Category = category?.Name;
         }
 
-        Totals = [.. listTotals.OrderBy(o => o.Category).ToList()];
+        Totals = [.. listTotals.OrderByDescending(o => o.Total).ToList()];
         Total = expenses.Sum(s => s.Value);
     }
 
