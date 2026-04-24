@@ -47,7 +47,7 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
 
     async Task LoadExpenses()
     {
-        Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
+        Title = "Gastos de " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
 
         if (DateTime.Today.Year != Month.Year)
             Title = $"{Title} de {Month.Year}";
