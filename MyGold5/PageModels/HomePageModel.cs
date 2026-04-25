@@ -32,7 +32,7 @@ public partial class HomePageModel(SpentRepository repository, CategoryRepositor
     [RelayCommand]
     async Task LoadExpenses()
     {
-        Title = "Resumo de " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
+        Title = "Resumo - " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
 
         if (DateTime.Today.Year != Month.Year)
             Title = $"{Title} de {Month.Year}";

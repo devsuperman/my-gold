@@ -24,7 +24,7 @@ public partial class FilterByCategoryPopupPageModel(CategoryRepository categoryR
 
     async Task LoadCategories()
     {
-        Category categoryAll = new() { ID = 0, Name = "😎 All" };
+        Category categoryAll = new() { ID = 0, Name = "😎 Tudo" };
         var categories = new List<Category> { categoryAll };
         categories.AddRange(await categoryRepository.ListAsync());
 
@@ -35,6 +35,6 @@ public partial class FilterByCategoryPopupPageModel(CategoryRepository categoryR
     [RelayCommand]
     async Task NewSelectedCategory(Category category)
     {
-        await popupService.ClosePopupAsync(Shell.Current, category.ID);
+        await popupService.ClosePopupAsync(Shell.Current, category?.ID ?? 0);
     }
 }

@@ -47,7 +47,7 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
 
     async Task LoadExpenses()
     {
-        Title = "Gastos de " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
+        Title = "Dia a dia - " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Month.ToString("MMMM"));
 
         if (DateTime.Today.Year != Month.Year)
             Title = $"{Title} de {Month.Year}";
@@ -94,8 +94,10 @@ public partial class SpentListPageModel(SpentRepository repository, CategoryRepo
             options: PopupOptions.Empty,
             shellParameters: queryAttributes);
 
+        if (popupResult.WasDismissedByTappingOutsideOfPopup)
+            return;
+        
         _selectedCategoryId = popupResult.Result;
-
         await LoadExpenses();
     }
 }

@@ -22,18 +22,24 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Category">
 
-                    <Label
+                    <VerticalStackLayout Spacing="20">
+
+                        <Label
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource SubHeadline}"
                         Text="{Binding Name}">
 
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer 
                                 Command="{Binding Source={x:Reference Popup}, Path=BindingContext.NewSelectedCategoryCommand}"
                                 CommandParameter="{Binding .}"/>
-                        </Label.GestureRecognizers>
+                            </Label.GestureRecognizers>
 
-                    </Label>
+                        </Label>
+
+                        <BoxView Style="{StaticResource Divider}"/>
+                        
+                    </VerticalStackLayout>
 
                 </DataTemplate>
 

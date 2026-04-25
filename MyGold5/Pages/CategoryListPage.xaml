@@ -21,8 +21,8 @@
     <Grid>
         
         <CollectionView 
+            Margin="0,20,0,20"
             ItemsSource="{Binding List}"
-            Margin="20"
             x:Name="ListCollectionView"
             SelectionMode="Single"
             SelectedItem="{Binding SelectedItem}"
@@ -37,15 +37,13 @@
                 <DataTemplate x:DataType="models:Category">
 
                     <VerticalStackLayout 
-                        Spacing="20"
-                        Padding="20,0,20,0">
+                        Spacing="20">
 
-                        <Label Text="{Binding Name}"/>
+                        <Label                             
+                            Padding="20,0,20,0"
+                            Text="{Binding Name}"/>
 
-                        <BoxView
-                            Color="{StaticResource Gray100}"
-                            WidthRequest="400"
-                            HeightRequest="1"/> 
+                        <BoxView Style="{StaticResource Divider}"/> 
 
                     </VerticalStackLayout>
 

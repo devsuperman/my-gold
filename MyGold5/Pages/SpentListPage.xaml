@@ -34,7 +34,8 @@
                 ColumnDefinitions="*,Auto">
 
                 <Label 
-                    Style="{StaticResource Title1}"
+                    VerticalTextAlignment="Center"
+                    Style="{StaticResource Title2}"
                     Text="{Binding Title}"/>
 
                 <Label 
@@ -61,6 +62,7 @@
                         <StackLayout>
                             <Label
                                 Margin="20"
+                                HorizontalTextAlignment="Center"
                                 Style="{StaticResource Body3}"
                                 Text="{Binding Name}"/>
                         </StackLayout>
@@ -76,10 +78,10 @@
                     <DataTemplate x:DataType="models:Spent">
 
                         <VerticalStackLayout 
-                            Spacing="20"
-                            Padding="20,0,20,0">
+                            Spacing="20">
 
-                            <Grid 
+                            <Grid                                 
+                                Padding="20,0,20,0"
                                 ColumnDefinitions="*,Auto"
                                 VerticalOptions="Center">
 
@@ -93,10 +95,7 @@
 
                             </Grid>
 
-                            <BoxView
-                                Color="{StaticResource Gray100}"
-                                WidthRequest="400"
-                                HeightRequest="1"/>
+                            <BoxView Style="{StaticResource Divider}"/>
 
                         </VerticalStackLayout>
 
@@ -104,7 +103,7 @@
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
-            
+
         </Grid>
 
         <controls:AddButton
