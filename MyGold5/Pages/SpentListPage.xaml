@@ -28,33 +28,28 @@
 
         <Grid RowDefinitions="Auto,*">
 
-            <Grid 
+            <VerticalStackLayout
                 Padding="20"
-                Grid.Column="0"
-                ColumnDefinitions="*,Auto">
+                Margin="0,20,0,20"
+                Grid.Column="0">
 
                 <Label 
                     VerticalTextAlignment="Center"
-                    Style="{StaticResource Title2}"
+                    Style="{StaticResource Body2}"
+                    FontSize="17"
                     Text="{Binding Title}"/>
 
                 <Label 
-                    HorizontalOptions="End"
-                    HorizontalTextAlignment="End"
                     Text="{Binding Total, StringFormat='{0:C}'}" 
                     Style="{StaticResource Title1}"
                     TextColor="MediumSeaGreen"/>
 
-            </Grid>
+            </VerticalStackLayout>
 
             <CollectionView 
                 Grid.Row="1"
                 ItemsSource="{Binding ListGroup}"
-                IsGrouped="True"
-                SelectionMode="Single"
-                SelectedItem="{Binding SelectedItem}"
-                SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}"
-                SelectionChangedCommandParameter="{Binding SelectedItem}">
+                IsGrouped="True">
 
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate x:DataType="models:SpentGroup">
@@ -77,8 +72,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Spent">
 
-                        <VerticalStackLayout 
-                            Spacing="20">
+                        <VerticalStackLayout Spacing="20">
 
                             <Grid                                 
                                 Padding="20,0,20,0"
@@ -97,6 +91,11 @@
 
                             <BoxView Style="{StaticResource Divider}"/>
 
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:SpentListPageModel}}, x:DataType=pageModels:SpentListPageModel}" 
+                                    CommandParameter="{Binding .}"/>                                    
+                            </VerticalStackLayout.GestureRecognizers>
                         </VerticalStackLayout>
 
                     </DataTemplate>

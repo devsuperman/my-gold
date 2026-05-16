@@ -194,12 +194,9 @@
         <Setter Property="FontAttributes"
                 Value="{OnPlatform Default=None, Android=Bold}" />
     </Style>
-    <Style x:Key="Body1"
-           TargetType="Label">
-        <Setter Property="FontSize"
-                Value="17" />
-        <Setter Property="LineHeight"
-                Value="1.29" />
+    <Style x:Key="Body1" TargetType="Label">
+        <Setter Property="FontSize" Value="17" />
+        <Setter Property="LineHeight" Value="1.29" />
         <!-- 22 -->
     </Style>
     <Style x:Key="Body1Strong"

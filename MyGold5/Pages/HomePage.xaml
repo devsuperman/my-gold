@@ -25,25 +25,23 @@
 
     <Grid RowDefinitions="Auto, *">
 
-        <Grid 
-                Padding="20"
-                Grid.Column="0"
-                ColumnDefinitions="*,Auto"
-                Margin="0,0,0,20">
+        <VerticalStackLayout
+            Padding="20"
+            Margin="0,20,0,20"
+            Grid.Column="0">
 
             <Label 
-                    VerticalTextAlignment="Center"
-                    Style="{StaticResource Title2}"
-                    Text="{Binding Title}"/>
+                VerticalTextAlignment="Center"
+                Style="{StaticResource Body2}"
+                FontSize="17"
+                Text="{Binding Title}"/>
 
             <Label 
-                    HorizontalOptions="End"
-                    HorizontalTextAlignment="End"
-                    Text="{Binding Total, StringFormat='{0:C}'}" 
-                    Style="{StaticResource Title1}"
-                    TextColor="MediumSeaGreen"/>
+                Text="{Binding Total, StringFormat='{0:C}'}" 
+                Style="{StaticResource Title1}"
+                TextColor="MediumSeaGreen"/>
 
-        </Grid>
+        </VerticalStackLayout>
 
         <CollectionView 
                 Grid.Row="1"
