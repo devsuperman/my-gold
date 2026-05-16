@@ -7,6 +7,7 @@
             x:Class="MyGold5.Pages.Popups.FilterByCategoryPopup"
             xmlns:pagemodels="clr-namespace:MyGold5.PageModels"
             xmlns:models="clr-namespace:MyGold5.Models"
+            BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
             x:DataType="pagemodels:FilterByCategoryPopupPageModel"
             x:Name="Popup">
 
