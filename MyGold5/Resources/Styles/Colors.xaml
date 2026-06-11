@@ -4,14 +4,53 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+    <Color x:Key="Primary">#6750A4</Color>
+    <Color x:Key="OnPrimary">#FFFFFF</Color>
+    <Color x:Key="PrimaryContainer">#EADDFF</Color>
+    <Color x:Key="OnPrimaryContainer">#21005D</Color>
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="PrimaryDark">#D0BCFF</Color>
+    <Color x:Key="OnPrimaryDark">#381E72</Color>
+    <Color x:Key="PrimaryContainerDark">#4F378B</Color>
+    <Color x:Key="OnPrimaryContainerDark">#EADDFF</Color>
 
+    <Color x:Key="Secondary">#625B71</Color>
+    <Color x:Key="OnSecondary">#FFFFFF</Color>
+    <Color x:Key="SecondaryContainer">#E8DEF8</Color>
+    <Color x:Key="OnSecondaryContainer">#1D192B</Color>
+
+    <Color x:Key="SecondaryDark">#CCC2DC</Color>
+    <Color x:Key="OnSecondaryDark">#332D41</Color>
+    <Color x:Key="SecondaryContainerDark">#4A4458</Color>
+    <Color x:Key="OnSecondaryContainerDark">#E8DEF8</Color>
+
+    <Color x:Key="Tertiary">#7D5260</Color>
+    <Color x:Key="OnTertiary">#FFFFFF</Color>
+    <Color x:Key="TertiaryContainer">#FFD8E4</Color>
+    <Color x:Key="OnTertiaryContainer">#31111D</Color>
+
+    <Color x:Key="TertiaryDark">#EFB8C8</Color>
+    <Color x:Key="OnTertiaryDark">#492532</Color>
+    <Color x:Key="TertiaryContainerDark">#633B48</Color>
+    <Color x:Key="OnTertiaryContainerDark">#FFD8E4</Color>
+
+    <Color x:Key="SurfaceLight">#FEF7FF</Color>
+    <Color x:Key="SurfaceContainerLight">#F3EDF7</Color>
+    <Color x:Key="SurfaceVariantLight">#E7E0EC</Color>
+    <Color x:Key="OnSurfaceLight">#1D1B20</Color>
+    <Color x:Key="OnSurfaceVariantLight">#49454F</Color>
+    <Color x:Key="OutlineLight">#79747E</Color>
+    <Color x:Key="OutlineVariantLight">#CAC4D0</Color>
+
+    <Color x:Key="SurfaceDark">#141218</Color>
+    <Color x:Key="SurfaceContainerDark">#211F26</Color>
+    <Color x:Key="SurfaceVariantDark">#49454F</Color>
+    <Color x:Key="OnSurfaceDark">#E6E0E9</Color>
+    <Color x:Key="OnSurfaceVariantDark">#CAC4D0</Color>
+    <Color x:Key="OutlineDark">#938F99</Color>
+    <Color x:Key="OutlineVariantDark">#49454F</Color>
+
+    <!-- Backwards-compatible aliases -->
     <Color x:Key="DarkBackground">#17171a</Color>
     <Color x:Key="LightOnDarkBackground">#C3C3C3</Color>
     <Color x:Key="LightBackground">#F2F2F2</Color>
@@ -20,24 +59,31 @@
     <Color x:Key="LightSecondaryBackground">#E0E0E0</Color>
     <Color x:Key="DarkSecondaryBackground">#222228</Color>
 
+    <Color x:Key="PrimaryDarkText">#381E72</Color>
+    <Color x:Key="SecondaryDarkText">#E6E1E5</Color>
+
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
-    <Color x:Key="OffBlack">#1f1f1f</Color>
+    <Color x:Key="Magenta">#6750A4</Color>
+    <Color x:Key="MidnightBlue">#1D1B20</Color>
+    <Color x:Key="OffBlack">#141218</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
-    <Color x:Key="Gray900">#212121</Color>
-    <Color x:Key="Gray950">#141414</Color>
+    <Color x:Key="Gray100">#F3EDF7</Color>
+    <Color x:Key="Gray200">#E7E0EC</Color>
+    <Color x:Key="Gray300">#CAC4D0</Color>
+    <Color x:Key="Gray400">#938F99</Color>
+    <Color x:Key="Gray500">#79747E</Color>
+    <Color x:Key="Gray600">#625B71</Color>
+    <Color x:Key="Gray900">#1D1B20</Color>
+    <Color x:Key="Gray950">#141218</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="SurfaceLightBrush" Color="{StaticResource SurfaceLight}"/>
+    <SolidColorBrush x:Key="SurfaceDarkBrush" Color="{StaticResource SurfaceDark}"/>
+    <SolidColorBrush x:Key="SurfaceContainerLightBrush" Color="{StaticResource SurfaceContainerLight}"/>
+    <SolidColorBrush x:Key="SurfaceContainerDarkBrush" Color="{StaticResource SurfaceContainerDark}"/>
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
 
