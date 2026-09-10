@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MyGold5.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MyGold5.Pages"
+    BackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackground}, Dark={StaticResource DarkSecondaryBackground}}"
+    Title="MyGold5">
+
+    <Tab
+        Title="Início"
+        Route="home"
+        Icon="{StaticResource IconHome}">
+        <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" />
+    </Tab>
+
+    <Tab
+        Title="Gastos"
+        Route="expenses"
+        Icon="{StaticResource IconExpenses}">
+        <ShellContent ContentTemplate="{DataTemplate pages:SpentListPage}" />
+    </Tab>
+
+    <Tab
+        Title="Categorias"
+        Route="categories"
+        Icon="{StaticResource IconCategories}">
+        <ShellContent ContentTemplate="{DataTemplate pages:CategoryListPage}" />
+    </Tab>
+
+</Shell>

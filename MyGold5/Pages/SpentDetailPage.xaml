@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pageModels="clr-namespace:MyGold5.PageModels"
+             xmlns:models="clr-namespace:MyGold5.Models"
+             xmlns:pages="clr-namespace:MyGold5.Pages"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:controls="clr-namespace:MyGold5.Pages.Controls"
+             xmlns:fonts="clr-namespace:Fonts"
+             x:Class="MyGold5.Pages.SpentDetailPage"
+             x:DataType="pageModels:SpentDetailPageModel"
+             Title="Gasto">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IsEnabled="{Binding CanDelete}"
+            Text="Delete"
+            Command="{Binding DeleteCommand}"
+            Order="Primary"
+            Priority="0"
+            IconImageSource="{StaticResource IconDelete}"
+            SemanticProperties.Description="Delete Spent" />
+    </ContentPage.ToolbarItems>
+
+    <Grid
+        Padding="20">
+        <ScrollView>
+            <VerticalStackLayout Spacing="{StaticResource LayoutSpacing}">
+
+                <sf:SfTextInputLayout Hint="Data" >
+
+                    <DatePicker
+                        Date="{Binding Date}"
+                        SemanticProperties.Description="Date"/>
+
+                </sf:SfTextInputLayout>
+
+                <sf:SfTextInputLayout
+                     Hint="Categoria"
+                     SemanticProperties.Description="ComboBox to Select Category"
+                     SemanticProperties.Hint="State Collapsed">
+
+                    <Picker SemanticProperties.Hint="Select the category for the spent"
+                         ItemsSource="{Binding Categories}"
+                         SelectedItem="{Binding Category}"
+                         ItemDisplayBinding="{Binding Name}"
+                         SemanticProperties.Description="Category State Expanded"/>     
+
+                </sf:SfTextInputLayout>
+
+                <sf:SfTextInputLayout Hint="Descrição" >
+
+                    <Entry
+                        Text="{Binding Name}" 
+                        SemanticProperties.Description="Name"
+                        ReturnType="Next"
+                        Keyboard="Text"/>
+
+                </sf:SfTextInputLayout>
+
+                <sf:SfTextInputLayout Hint="Valor">
+                    
+                    <Entry
+                        Text="{Binding Value}" 
+                        Keyboard="Numeric"
+                        SemanticProperties.Description="Value" 
+                        ReturnType="Done"/>
+
+                </sf:SfTextInputLayout>
+
+                <Button Text="Salvar" 
+                    MinimumHeightRequest="{OnIdiom 44, Desktop=60}"
+                    Command="{Binding SaveCommand}" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

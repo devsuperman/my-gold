@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pageModels="clr-namespace:MyGold5.PageModels"
+             xmlns:models="clr-namespace:MyGold5.Models"
+             xmlns:controls="clr-namespace:MyGold5.Pages.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MyGold5.Pages.CategoryListPage"
+             x:Name="CategoryList"
+             x:DataType="pageModels:CategoryListPageModel"
+             Title="Categorias">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+                x:Name="AppearingBehavior"
+                EventName="Appearing"                
+                BindingContext="{Binding Path=BindingContext, Source={x:Reference CategoryList}, x:DataType=ContentPage}"
+                Command="{Binding AppearingCommand}" />
+    </ContentPage.Behaviors>
+
+    <Grid>
+        
+        <CollectionView 
+            Margin="0,20,0,20"
+            ItemsSource="{Binding List}"
+            x:Name="ListCollectionView"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem}"
+            SelectionChangedCommand="{Binding OpenItemCommand, Source={RelativeSource AncestorType={x:Type pageModels:CategoryListPageModel}}, x:DataType=pageModels:CategoryListPageModel}"
+            SelectionChangedCommandParameter="{Binding SelectedItem}">
+            
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Category">
+
+                    <VerticalStackLayout 
+                        Spacing="20">
+
+                        <Label                             
+                            Padding="20,0,20,0"
+                            Text="{Binding Name}"/>
+
+                        <BoxView Style="{StaticResource Divider}"/> 
+
+                    </VerticalStackLayout>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <controls:AddButton
+            Command="{Binding AddItemCommand}"
+            SemanticProperties.Description="Add" 
+            ToolTipProperties.Text="Add" />
+    </Grid>
+</ContentPage>
